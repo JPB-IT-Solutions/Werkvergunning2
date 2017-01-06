@@ -1,4 +1,5 @@
 class Enquirymeasure < ActiveRecord::Base
   belongs_to :enquiry
-  belongs_to :measurement
+  has_many :measurements
+  accepts_nested_attributes_for :measurements
 end

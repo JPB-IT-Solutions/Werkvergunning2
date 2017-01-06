@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105153419) do
+ActiveRecord::Schema.define(version: 20170106082756) do
 
   create_table "enquiries", force: :cascade do |t|
     t.string   "reference",   limit: 255
