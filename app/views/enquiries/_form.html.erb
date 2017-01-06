@@ -1,0 +1,72 @@
+<%= form_for(@enquiry) do |f| %>
+  <% if @enquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
+
+      <ul>
+      <% @enquiry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div>
+      <%= f.label :Referentie %><br>
+      <%= f.text_field :reference %> <br>
+      <br>
+      <%= f.label :Locatie %><br>
+      <%= f.select :location, [['Chemiepark', 'chemiepark'],['Winschoten', 'winschoten'],['Farmsum', 'farmsum']] %> <br>
+      <br>
+      <%= f.label :Omschrijving %><br>
+      <%= f.text_area :description %> <br>
+      <br>
+      <%= f.label :Aantal_uitvoerenden %><br>
+      <%= f.number_field :amount %> <br>
+      <br>
+      <%= f.label :Datum %><br>
+      <%= f.datetime_select :date %> <br>
+      <br>
+
+
+    </div>
+<br>
+    <hr>
+    <br>
+
+    <%# maatregelen %>
+    <div> <%# div voor het koppelen van maatregelen %>
+      <%= f.fields_for :enquirymeasures do |em| %>
+
+        <%=em.label :maatregel %>
+          <%= collection_select(:enquirymeasures, :measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
+          <br>
+        <%= em.label :Verantwoordelijke %>
+          <%= em.text_field :responsible %>
+        <%= em.label :nodig %>
+          <%= em.check_box :needed %>
+        <%= em.label :gereed %>
+          <%= em.check_box :done %>
+      <br>
+
+        <% end %>
+    </div>
+
+    <hr>
+    <p align="center">Gereedschap</p>
+
+    <%# gereedschap %>
+    <div>
+      <%= f.fields_for :tools do |t| %>
+
+          <%= t.label :handgereedschap %>
+          <%= t.text_field :handtool %>
+
+      <% end %>
+    </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  measurement: MyString
+  type: 
+  validfrom: 2017-01-05
+  validtill: 2017-01-05
+  enquirymeasure_id: 
+
+two:
+  measurement: MyString
+  type: 
+  validfrom: 2017-01-05
+  validtill: 2017-01-05
+  enquirymeasure_id: 
