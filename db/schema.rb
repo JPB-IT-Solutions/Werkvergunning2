@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106082756) do
+ActiveRecord::Schema.define(version: 20170106090902) do
 
   create_table "enquiries", force: :cascade do |t|
     t.string   "reference",   limit: 255
@@ -24,15 +24,17 @@ ActiveRecord::Schema.define(version: 20170106082756) do
   end
 
   create_table "enquirymeasures", force: :cascade do |t|
-    t.string   "done",        limit: 255
-    t.string   "responsible", limit: 255
-    t.string   "needed",      limit: 255
-    t.integer  "enquiry_id",  limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "done",           limit: 255
+    t.string   "responsible",    limit: 255
+    t.string   "needed",         limit: 255
+    t.integer  "enquiry_id",     limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "measurement_id", limit: 4
   end
 
   add_index "enquirymeasures", ["enquiry_id"], name: "index_enquirymeasures_on_enquiry_id", using: :btree
+  add_index "enquirymeasures", ["measurement_id"], name: "index_enquirymeasures_on_measurement_id", using: :btree
 
   create_table "measurements", force: :cascade do |t|
     t.string   "measurement",       limit: 255

@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+    <p align="center">Algemene informatie</p>
     <div>
       <%= f.label :Referentie %><br>
       <%= f.text_field :reference %> <br>
@@ -32,6 +32,7 @@
     </div>
 <br>
     <hr>
+    <p align="center">Benodigde maatregelen</p>
     <br>
 
     <%# maatregelen %>
@@ -39,7 +40,7 @@
       <%= f.fields_for :enquirymeasures do |em| %>
 
         <%=em.label :maatregel %>
-          <%= collection_select(:enquirymeasures, :measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
+          <%= em.collection_select(:measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
           <br>
         <%= em.label :Verantwoordelijke %>
           <%= em.text_field :responsible %>
@@ -58,11 +59,17 @@
     <%# gereedschap %>
     <div>
       <%= f.fields_for :tools do |t| %>
-
-          <%= t.label :handgereedschap %>
+        <p>Diverse gereedschappen kunnen door middel van , worden gescheiden.</p>
+          <%= t.label :handgereedschap %><br>
           <%= t.text_field :handtool %>
+          <br>
+          <%= t.label :apparatuur %><br>
+          <%= t.text_field :equipment %>
+          <br>
+          <%= t.label :overig %><br>
+          <%= t.text_area :other %>
 
-      <% end %>
+    <% end %>
     </div>
 
 

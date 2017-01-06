@@ -18,7 +18,7 @@ class EnquiriesController < ApplicationController
     2.times { @enquiry.enquirymeasures.build }
     #@enquiry.measurements.build
     @enquiry.tools.build
-
+    #@enquiry.enquirymeasures.build.build_measurement
   end
 
   # GET /enquiries/1/edit
