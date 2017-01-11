@@ -1,188 +1,193 @@
 <%= form_for(@enquiry) do |f| %>
-  <% if @enquiry.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
+    <form role="form">
+      <% if @enquiry.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
 
-      <ul>
-      <% @enquiry.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+              <% @enquiry.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <p align="center">Algemene informatie</p>
-    <div>
-      <%= f.fields_for :applicant do |a| %>
+      <p align="center">Algemene informatie</p>
+      <div class="form-group">
 
-    <%= f.label :Referentie %><br>
-      <%= f.text_field :reference %> <br>
-      <br>
-      <%= f.label :Locatie %><br>
-      <%= f.select :location, [['Chemiepark', 'chemiepark'],['Winschoten', 'winschoten'],['Farmsum', 'farmsum']] %> <br>
-      <br>
-      <%= f.label :Omschrijving %><br>
-      <%= f.text_area :description %> <br>
-      <br>
-      <%= f.label :Aantal_uitvoerenden %><br>
-      <%= f.number_field :amount %> <br>
-      <br>
-      <%= f.label :Datum %><br>
-      <%= f.datetime_select :date %> <br>
-      <br>
-          <%= a.label :Aanvrager %><br>
-          <%= a.text_field :name %> <br>
-          <br>
-          <%= a.label :email %><br>
-          <%= a.text_field :email %> <br>
-              <br>
-              <%= a.label :Aannemer %><br>
-              <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
+        <%= f.fields_for :applicant do |a| %>
 
-      <%end%>
-    </div>
-<br>
-    <hr>
-    <p align="center">Benodigde maatregelen</p>
-    <br>
+            <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
+            <%= f.text_field :reference, :class => "form-control" %> <br>
 
-    <%# maatregelen %>
-    <div> <%# div voor het koppelen van maatregelen %>
-      <%= f.fields_for :enquirymeasures do |em| %>
+            <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
+            <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
+            <br>
+            <br>
 
-        <%=em.label :maatregel %>
-          <%= em.collection_select(:measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
-          <br>
-        <%= em.label :Verantwoordelijke %>
-          <%= em.text_field :responsible %>
-        <%= em.label :nodig %>
-          <%= em.check_box :needed %>
-        <%= em.label :gereed %>
-          <%= em.check_box :done %>
-      <br>
+            <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
+            <%= f.text_area :description, :class => "form-control" %> <br>
+
+            <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
+            <%= f.number_field :amount, :class => "form-control" %> <br>
+
+            <%= f.label :Datum %><br>
+            <%= f.datetime_select :date %> <br>
+
+            <%= a.label :Aanvrager %><br>
+            <%= a.text_field :name %> <br>
+
+            <%= a.label :email %><br>
+            <%= a.text_field :email %> <br>
+
+            <%= a.label :Aannemer %><br>
+            <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
 
         <% end %>
-    </div>
+      </div>
+      <br>
+      <hr>
+      <p align="center">Benodigde maatregelen</p>
+      <br>
 
-    <hr>
-    <p align="center">Gereedschap</p>
+      <%# maatregelen %>
+      <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+        <%= f.fields_for :enquirymeasures do |em| %>
 
-    <%# gereedschap %>
-    <div>
-      <%= f.fields_for :tools do |t| %>
+            <%= em.label :maatregel %>
+            <%= em.collection_select(:measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
+            <br>
+            <%= em.label :Verantwoordelijke %>
+            <%= em.text_field :responsible %>
+            <%= em.label :nodig %>
+            <%= em.check_box :needed %>
+            <%= em.label :gereed %>
+            <%= em.check_box :done %>
+            <br>
 
-          <%= t.label :handgereedschap %><br>
-          <%= t.text_field :handtool %>
-          <br>
+        <% end %>
+      </div>
 
-          <%= t.label :overig %><br>
-          <%= t.text_area :other %>
-          <br>
-          <%= t.label :Motorvoertuig %>
-          <%= t.check_box :motorvehicle %>
-          <%= t.label :Compressor %>
-          <%= t.check_box :compressor %>
-          <%= t.label :Hoogwerker %>
-          <%= t.check_box :ramp %>
-          <%= t.label :Steiger %>
-          <%= t.check_box :scaffold %>
-          <%= t.label :Kraan %>
-          <%= t.check_box :crane %>
-          <%= t.label :Ladder %>
-          <%= t.check_box :ladder %>
-          <%= t.label :Aggregaat %>
-          <%= t.check_box :generator %>
-          <%= t.label :Tankladder %>
-          <%= t.check_box :tankladder %>
+      <hr>
+      <p align="center">Gereedschap</p>
 
-    <% end %>
-    </div>
-<br>
-    <hr>
-    <p align="center">Gasmetingen</p>
-    <br>
-    <div>
-      <%= f.fields_for :gasmeters do |g| %>
+      <%# gereedschap %>
+      <div class="form-group">
+        <%= f.fields_for :tools do |t| %>
 
-      <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
-          <%= g.datetime_select :date %><br>
+            <%= t.label :handgereedschap %><br>
+            <%= t.text_field :handtool %>
+            <br>
 
-          <%= g.label :tester %><br>
-          <%= g.text_field :tester %> <br>
+            <%= t.label :overig %><br>
+            <%= t.text_area :other %>
+            <br>
+            <%= t.label :Motorvoertuig %>
+            <%= t.check_box :motorvehicle %>
+            <%= t.label :Compressor %>
+            <%= t.check_box :compressor %>
+            <%= t.label :Hoogwerker %>
+            <%= t.check_box :ramp %>
+            <%= t.label :Steiger %>
+            <%= t.check_box :scaffold %>
+            <%= t.label :Kraan %>
+            <%= t.check_box :crane %>
+            <%= t.label :Ladder %>
+            <%= t.check_box :ladder %>
+            <%= t.label :Aggregaat %>
+            <%= t.check_box :generator %>
+            <%= t.label :Tankladder %>
+            <%= t.check_box :tankladder %>
 
-          <%= g.label :handtekening %><br>
-          <%= g.text_field :signature %> <br>
+        <% end %>
+      </div>
+      <br>
+      <hr>
+      <p align="center">Gasmetingen</p>
+      <br>
+      <div class="form-group">
+        <%= f.fields_for :gasmeters do |g| %>
 
-          <%= g.label :Zuurstof %><br>
-          <%= g.text_field :oxigen %> <br>
+            <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
+            <%= g.datetime_select :date %><br>
 
-          <%= g.label :benodigd %>
-          <%= g.check_box :o_needed %>
-          <br>
-          <%= g.label :continu %>
-          <%= g.check_box :o_continu %> <br>
+            <%= g.label :tester %><br>
+            <%= g.text_field :tester %> <br>
 
+            <%= g.label :handtekening %><br>
+            <%= g.text_field :signature %> <br>
 
-          <%= g.label :explosief %><br>
-          <%= g.text_field :explosives %> <br>
+            <%= g.label :Zuurstof %><br>
+            <%= g.text_field :oxigen %> <br>
 
-          <%= g.label :benodigd %>
-          <%= g.check_box :e_needed %> <br>
-
-          <%= g.label :continu %><
-          <%= g.check_box :e_continu %> <br>
-
-          <%= g.label :Stof1, "Stof 1" %><br>
-          <%= g.text_field :mat1 %> <br>
-
-          <%= g.label :benodigd %>
-          <%= g.check_box :mat1_needed %>
-
-          <%= g.label :continu %>
-          <%= g.check_box :mat1_continu %> <br>
-
-          <%= g.label :Stof2, "Stof 2" %><br>
-          <%= g.text_field :mat2 %> <br>
-
-          <%= g.label :benodigd %>
-          <%= g.check_box :mat2_needed %>
-
-          <%= g.label :continu %>
-          <%= g.check_box :mat2_continu %> <br>
-
-          <%= g.label :Stof3, "Stof 3" %><br>
-          <%= g.text_field :mat3 %> <br>
-
-          <%= g.label :benodigd %>
-          <%= g.check_box :mat3_needed %>
-
-          <%= g.label :continu %>
-          <%= g.check_box :mat3_continu %> <br>
-
-      <% end %>
-    </div>
+            <%= g.label :benodigd %>
+            <%= g.check_box :o_needed %>
+            <br>
+            <%= g.label :continu %>
+            <%= g.check_box :o_continu %> <br>
 
 
-<hr>
+            <%= g.label :explosief %><br>
+            <%= g.text_field :explosives %> <br>
 
-    <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw handtekening.</p>
-    <div>
-      <%= f.fields_for :signatures do |s| %>
-          <%= f.fields_for :representatives do |sr| %>
-              <%= s.label :Gemachtigde %><br>
-              <%= s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
-          <br>
-          <%= s.label :datum %><br>
-          <%= s.datetime_select :date %>
+            <%= g.label :benodigd %>
+            <%= g.check_box :e_needed %> <br>
 
-          <br>
-          <%= s.label :Handtekening %><br>
-          <%= s.text_field :signature %>
+            <%= g.label :continu %><
+            <%= g.check_box :e_continu %> <br>
 
-      <%end%>
-      <%end%>
-    </div>
+            <%= g.label :Stof1, "Stof 1" %><br>
+            <%= g.text_field :mat1 %> <br>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+            <%= g.label :benodigd %>
+            <%= g.check_box :mat1_needed %>
+
+            <%= g.label :continu %>
+            <%= g.check_box :mat1_continu %> <br>
+
+            <%= g.label :Stof2, "Stof 2" %><br>
+            <%= g.text_field :mat2 %> <br>
+
+            <%= g.label :benodigd %>
+            <%= g.check_box :mat2_needed %>
+
+            <%= g.label :continu %>
+            <%= g.check_box :mat2_continu %> <br>
+
+            <%= g.label :Stof3, "Stof 3" %><br>
+            <%= g.text_field :mat3 %> <br>
+
+            <%= g.label :benodigd %>
+            <%= g.check_box :mat3_needed %>
+
+            <%= g.label :continu %>
+            <%= g.check_box :mat3_continu %> <br>
+
+        <% end %>
+      </div>
+
+
+      <hr>
+
+      <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw handtekening.</p>
+      <div class="form-group">
+        <%= f.fields_for :signatures do |s| %>
+            <%= f.fields_for :representatives do |sr| %>
+                <%= s.label :Gemachtigde %><br>
+                <%= s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
+                <br>
+                <%= s.label :datum %><br>
+                <%= s.datetime_select :date %>
+
+                <br>
+                <%= s.label :Handtekening %><br>
+                <%= s.text_field :signature %>
+
+            <% end %>
+        <% end %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </form>
 <% end %>

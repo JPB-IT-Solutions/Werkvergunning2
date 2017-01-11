@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Enquiries</h1>
+
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>referentie</th>
+      <th>Beschrijving</th>
+      <th>Locatie</th>
+      <th>Datum</th>
+      <th>Aantal uitvoerenden</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @enquiries.each do |enquiry| %>
+      <tr>
+        <td><%= enquiry.id %></td>
+        <td><%= enquiry.reference %></td>
+        <td><%= enquiry.description %></td>
+        <td><%= enquiry.location %></td>
+        <td><%= enquiry.date %></td>
+        <td><%= enquiry.amount %></td>
+        <td><%= link_to 'Show', enquiry, class: 'btn btn-primary btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_enquiry_path(enquiry), class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+  <br>
+
+<%= link_to 'New Enquiry', new_enquiry_path %>

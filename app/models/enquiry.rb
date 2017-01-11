@@ -14,12 +14,9 @@ class Enquiry < ActiveRecord::Base
 
   has_one :contractor, through: :applicant
 
-
   has_many :signatures, dependent: :destroy
   accepts_nested_attributes_for :signatures
   has_many :representatives , through: :signatures, :source => :representatives
-
-
 
   has_many :gasmeters, dependent: :destroy
   accepts_nested_attributes_for :gasmeters
