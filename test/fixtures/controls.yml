@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  : false
+  enquirycheck: MyString
+  : false
+  workspacecheck: MyString
+  enquiry_id: 
+
+two:
+  : false
+  enquirycheck: MyString
+  : false
+  workspacecheck: MyString
+  enquiry_id: 

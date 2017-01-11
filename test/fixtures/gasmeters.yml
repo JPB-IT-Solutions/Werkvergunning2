@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  datum: 2017-01-09 15:34:05
+  tester: MyString
+  signature: MyString
+  oxigen: MyString
+  o_needed: false
+  o_continu: false
+  explosives: MyString
+  e_needed: false
+  e_continu: false
+  mat1: MyString
+  mat1_needed: false
+  mat1_continu: false
+  mat2: MyString
+  mat2_needed: false
+  mat2_continu: false
+  mat3: MyString
+  mat3_needed: false
+  mat3_continu: false
+
+two:
+  datum: 2017-01-09 15:34:05
+  tester: MyString
+  signature: MyString
+  oxigen: MyString
+  o_needed: false
+  o_continu: false
+  explosives: MyString
+  e_needed: false
+  e_continu: false
+  mat1: MyString
+  mat1_needed: false
+  mat1_continu: false
+  mat2: MyString
+  mat2_needed: false
+  mat2_continu: false
+  mat3: MyString
+  mat3_needed: false
+  mat3_continu: false

@@ -1,0 +1,22 @@
+De Signatures tabel word gebruikt voor het ondertekenen van de aanvraag door de goedgekeurde aanvrager!
+
+
+De nog te doen migrations
+
+rails g model Tabelnaam :string equipment:string other:string enquiry:references
+
+rails g model Applicant name:string email:string enquiry:references
+
+rails g model Contractor name:string email:string applicant:references
+
+rails g model Signature date:datetime signature:string enquiry:references
+
+rails g model Representative name:string telephone:integer email:string signature:references
+
+rails g model Gasmeter datum:datetime tester:string signature:string oxigen:string o_needed:boolean o_continu:boolean explosives:string e_needed:boolean e_continu:boolean mat1:string mat1_needed:boolean mat1_continu:boolean mat2:string mat2_needed:boolean mat2_continu:boolean mat3:string mat3_needed:boolean mat3_continu:boolean
+
+
+Hiermee kan je een foreign key toevoegen aan een tabel. benodigd voor bijvoorbeeld collection_selects
+
+rails g migration AddRepresentativeToSignature representative:references Deze genereerd een representative_id in de tabel Signature
+                                                                          en dus een relatie van signature naar representative
