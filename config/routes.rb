@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  resources :enquiries
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  devise_for :users
+  scope "/admin" do
+    resources :users, :enquiries
+  end
+
+
+
+
+root 'enquiries#index'
   get 'welcome/Index'
 
   # The priority is based upon order of creation: first created -> highest priority.

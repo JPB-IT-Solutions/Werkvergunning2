@@ -20,3 +20,8 @@ Hiermee kan je een foreign key toevoegen aan een tabel. benodigd voor bijvoorbee
 
 rails g migration AddRepresentativeToSignature representative:references Deze genereerd een representative_id in de tabel Signature
                                                                           en dus een relatie van signature naar representative
+
+
+Voor meerdere user roles:
+http://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
+Modificaties na de Scaffold niet gedaan! direct door naar volgende stappen gegaan.

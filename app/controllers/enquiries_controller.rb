@@ -1,5 +1,7 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
+  #11-1-2017 Devise geinstalleerd, nog verder afmaken!(oa onderstaande uncommenten)
+  before_action :authenticate_user!
 
   # GET /enquiries
   # GET /enquiries.json
@@ -31,6 +33,7 @@ class EnquiriesController < ApplicationController
   # POST /enquiries
   # POST /enquiries.json
   def create
+    @enquiry.user_id = current_user.id
     @enquiry = Enquiry.new(enquiry_params)
     #@enquiry.enquirymeasures.build
 

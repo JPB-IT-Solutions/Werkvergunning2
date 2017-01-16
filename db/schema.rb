@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111095851) do
+ActiveRecord::Schema.define(version: 20170116140229) do
 
   create_table "agreeds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -63,7 +63,10 @@ ActiveRecord::Schema.define(version: 20170111095851) do
     t.datetime "date"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
   end
+
+  add_index "enquiries", ["user_id"], name: "index_enquiries_on_user_id", using: :btree
 
   create_table "enquirymeasures", force: :cascade do |t|
     t.string   "done",           limit: 255
@@ -127,6 +130,13 @@ ActiveRecord::Schema.define(version: 20170111095851) do
 
   add_index "representatives", ["signature_id"], name: "index_representatives_on_signature_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "signatures", force: :cascade do |t|
     t.datetime "date"
     t.string   "signature",         limit: 255
@@ -158,11 +168,33 @@ ActiveRecord::Schema.define(version: 20170111095851) do
 
   add_index "tools", ["enquiry_id"], name: "index_tools_on_enquiry_id", using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name",                   limit: 255
+    t.integer  "role_id",                limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
+
   add_foreign_key "agreeds", "enquiries"
   add_foreign_key "applicants", "contractors"
   add_foreign_key "applicants", "enquiries"
   add_foreign_key "contractors", "applicants"
   add_foreign_key "controls", "enquiries"
+  add_foreign_key "enquiries", "users"
   add_foreign_key "enquirymeasures", "enquiries"
   add_foreign_key "gasmeters", "enquiries"
   add_foreign_key "measurements", "enquirymeasures"
@@ -170,4 +202,5 @@ ActiveRecord::Schema.define(version: 20170111095851) do
   add_foreign_key "signatures", "enquiries"
   add_foreign_key "signatures", "representatives"
   add_foreign_key "tools", "enquiries"
+  add_foreign_key "users", "roles"
 end
