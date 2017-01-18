@@ -1,4 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_enquiry_path(@enquiry) %> |
-<%= link_to 'Back', enquiries_path %>
+<p>
+  <strong>ID:</strong>
+  <%= @enquiry.id %>
+</p>
+
+<p>
+  <strong>Referentie:</strong>
+  <%= @enquiry.reference %>
+</p>
+
+<p>
+  <strong>Beschrijving:</strong>
+  <%= @enquiry.description %>
+</p>
+
+<p>
+  <strong>Locatie:</strong>
+  <%= @enquiry.location %>
+</p>
+
+<p>
+  <strong>Datum:</strong>
+  <%= @enquiry.date %>
+</p>
+
+<p>
+  <strong>Assosciated users:</strong>
+  <%= @assosciated_users %>
+</p>
+
+<%= link_to 'Edit', edit_enquiry_path(@enquiry) %>
+<%= link_to 'Back', root_path %>
+

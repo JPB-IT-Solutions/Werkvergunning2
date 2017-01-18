@@ -25,3 +25,7 @@ rails g migration AddRepresentativeToSignature representative:references Deze ge
 Voor meerdere user roles:
 http://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
 Modificaties na de Scaffold niet gedaan! direct door naar volgende stappen gegaan.
+
+!!!!!!
+http://localhost:3000/users/sign_in
+Om in te loggen!!

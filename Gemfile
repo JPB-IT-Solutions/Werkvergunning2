@@ -30,7 +30,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 
 #gebruikersrollen
-gem 'cancancan'
+gem 'cancancan', '~> 1.10'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

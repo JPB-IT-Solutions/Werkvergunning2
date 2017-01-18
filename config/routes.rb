@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  scope "/admin" do
+  scope "/Admin" do
+    resources :users, :enquiries, :roles
+  end
+
+  scope "/Aanvrager" do
     resources :users, :enquiries
   end
 
-
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
 
 root 'enquiries#index'

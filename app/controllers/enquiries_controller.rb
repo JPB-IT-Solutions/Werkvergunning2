@@ -1,12 +1,15 @@
 class EnquiriesController < ApplicationController
-  before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
-  #11-1-2017 Devise geinstalleerd, nog verder afmaken!(oa onderstaande uncommenten)
   before_action :authenticate_user!
+  load_and_authorize_resource
+  # before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
+  #11-1-2017 Devise geinstalleerd, nog verder afmaken!(oa onderstaande uncommenten)
+
 
   # GET /enquiries
   # GET /enquiries.json
   def index
-    @enquiries = Enquiry.all
+   # @enquiries = Enquiry.all
+    @enquirie = current_user.enquiries
   end
 
   # GET /enquiries/1
@@ -18,16 +21,24 @@ class EnquiriesController < ApplicationController
   def new
     @enquiry = Enquiry.new
     2.times { @enquiry.enquirymeasures.build }
+       #@enquiry.measurements.build
+   @enquiry.tools.build
+    @enquiry.build_applicant
+    @enquiry.signatures.build
+    @enquiry.gasmeters.build
+       #@enquiry.enquirymeasures.build.build_measurement
+  end
+
+  # GET /enquiries/1/edit
+  def edit
+    #nog bouwen!!!! 18-01-17 Marco
+    @enquiry = Enquiry.new
+    2.times { @enquiry.enquirymeasures.build }
     #@enquiry.measurements.build
     @enquiry.tools.build
     @enquiry.build_applicant
     @enquiry.signatures.build
     @enquiry.gasmeters.build
-    #@enquiry.enquirymeasures.build.build_measurement
-  end
-
-  # GET /enquiries/1/edit
-  def edit
   end
 
   # POST /enquiries
@@ -80,10 +91,11 @@ class EnquiriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def enquiry_params
-      params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id],
+      params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
                                       tools_attributes: [:id, :handtool, :other, :motorvehicle, :compressor, :ramp, :scaffold, :crane, :ladder, :generator, :tankladder],
                                         applicant_attributes: [:id, :name, :email, :contractor_id],
                                       signatures_attributes: [:id, :date, :signature, :representative_id],
-                                      gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu])
+                                      gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu]).merge(user_id: current_user.id)
+
     end
 end

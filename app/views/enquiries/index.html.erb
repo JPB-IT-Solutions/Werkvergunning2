@@ -1,22 +1,145 @@
 <p id="notice"><%= notice %></p>
 
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Werkvergunningssysteem", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home", root_path %></li>
+
+        <li>
+          <% if can? :update, @enquiry %>
+              <%= link_to 'Gebruikers', users_path %></li>
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
+              </li>
+            </ul>
+          </li>
+
+          </ul>
+    </nav>
+  </div>
+</header>
+<br><br><br><br>
+
 <div id="main-container" class="container-fluid">
   <div class="row">
     <div id="sidebar" class="col-xs-3">
       <!-- sidebar content -->
-      <%=link_to 'New Enquiry', new_enquiry_path, class: 'btn btn-success' %>
-<%= link_to 'New user', new_user_path, class: 'btn btn-success' %>
 
+      <% if can? :create, Enquiry %>
+          <%= link_to 'Werkvergunning aanvragen', new_enquiry_path, class: 'btn btn-success' %><br>
+      <% end %>
+      <% if can? :update, @enquiry %>
+          <%= link_to 'Werkvergunningen', enquiries_path, class: 'btn btn-success' %><br>
+      <% end %>
+      <% if can? :update, @enquiry %>
+          <%= link_to 'Gebruikers', users_path, class: 'btn btn-success' %><br>
+      <% end %>
+      <% if can? :update, @enquiry %>
+          <%= link_to 'Rollen', roles_path, class: 'btn btn-success' %>
+      <% end %>
     </div>
     <div id="content" class="col-xs-9">
       <!--  main content -->
       <h1>JPB Werkvergunningen</h1>
       <p>Welkom bij het JPB werkvergunninssyteem.</p>
       <p>Binnen dit systeem kunt u nieuwe werkvergunningen aanvragen indien u van plan bent</p>
-       <p> werkzaamheden te gaan verrichten op een van onze locatie's.</p>
+      <p> werkzaamheden te gaan verrichten op een van onze locatie's.</p>
     </div>
   </div>
 </div>
 
+<%#link_to 'Nieuwe werkvergunning', new_enquiry_path, class: 'btn btn-success' %><br>
+
+<br>
+<hr>
+<br>
+<% if @enquirie.present? %>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Referentie</th>
+    <th>Omschrijving</th>
+    <th>locatie</th>
+    <th>Datum</th>
+  </tr>
+  </thead>
+  <tbody>
+
+      <% @enquirie.each do |enquiry| %>
+          <tr>
+            <td>
+              <%= enquiry.reference %>
+            </td>
+            <td>
+              <%= enquiry.description %>
+            </td>
+            <td>
+              <%= enquiry.location %>
+            </td>
+            <td>
+              <%= enquiry.date %>
+            </td>
+
+            <td><%= link_to 'Show', enquiry, class: 'btn btn-primary btn-xs' %></td>
+            <td><%= link_to 'Edit', edit_enquiry_path(enquiry), class: 'btn btn-info btn-xs'  %></td>
+            <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'  %></td>
+          </tr>
+          <%end%>
+  </tbody>
+</table>
+
+          <% else %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Referentie</th>
+        <th>Omschrijving</th>
+        <th>locatie</th>
+        <th>Datum</th>
+        <th>Aanvrager</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @enquiries.eager_load(:user).each do |enquiry| %>
+          <%# @enquiries.each do |enquiry| %>
+                     <tr>
+                <td>
+                  <%= enquiry.reference %>
+                </td>
+                <td>
+                  <%= enquiry.description %>
+                </td>
+                <td>
+                  <%= enquiry.location %>
+                </td>
+                <td>
+                  <%= enquiry.date %>
+                </td>
+                <td>
+                  <%= enquiry.user_id%>
+
+                </td><td>
+                       <%= enquiry.user.try(:name) %></td>
 
 
+
+                       <td><%= link_to 'Show', enquiry, class: 'btn btn-primary btn-xs' %></td>
+                <td><%= link_to 'Edit', edit_enquiry_path(enquiry), class: 'btn btn-info btn-xs'  %></td>
+                <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'  %></td>
+              </tr>
+
+      <% end %>
+
+</tbody>
+      </table>
+  <% end %>

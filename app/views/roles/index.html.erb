@@ -1,5 +1,14 @@
 <p id="notice"><%= notice %></p>
+<div id="main-container" class="container-fluid">
+  <div class="row">
+    <div id="sidebar" class="col-xs-3">
+      <!-- sidebar content -->
+      <%=link_to 'Werkvergunningen', enquiries_path, class: 'btn btn-success' %><br>
+      <%= link_to 'Gebruikers', users_path, class: 'btn btn-success' %><br>
+      <%= link_to 'Nieuwe rol', new_role_path, class: 'btn btn-success' %><br>
+    </div>
 
+    <div id="content" class="col-xs-9">
 <h1>Listing Roles</h1>
 
 <table>
@@ -23,7 +32,8 @@
     <% end %>
   </tbody>
 </table>
-
+    </div>
+  </div>
+</div>
 <br>
 
-<%= link_to 'New Role', new_role_path %>

@@ -21,4 +21,5 @@ class Enquiry < ActiveRecord::Base
   has_many :gasmeters, dependent: :destroy
   accepts_nested_attributes_for :gasmeters
 
+  belongs_to :user
 end

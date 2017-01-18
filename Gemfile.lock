@@ -206,7 +206,7 @@ DEPENDENCIES
   better_errors
   bootstrap-sass (~> 3.2.0)
   byebug
-  cancancan
+  cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
   devise
   jbuilder (~> 2.0)
