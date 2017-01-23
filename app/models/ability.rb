@@ -2,13 +2,25 @@ class Ability
   include CanCan::Ability
 
 
+  #def initialize(user)
+  #if user.admin?
+  #  can :manage, :all
+  #elsif user.aanvrager?
+  #  can :read, Enquiry
+  #  can :create, Enquiry
+          #can :update, Enquiry do |enquiry|
+           #enquiry.try(:user) == user
+  #  end
+
+
   def initialize(user)
-  if user.admin?
-    can :manage, :all
-  elsif user.aanvrager?
-    can :read, Enquiry
-    can :create, Enquiry
-    #can :update, Enquiry do |enquiry|
+    if user.admin?
+      can :manage, :all
+    elsif user.aanvrager?
+      can :read, Enquiry
+      can :create, Enquiry
+      can :edit, Enquiry
+      #can :update, Enquiry do |enquiry|
       #enquiry.try(:user) == user
     end
   end

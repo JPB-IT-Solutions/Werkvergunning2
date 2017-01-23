@@ -1,6 +1,12 @@
-<h1>Editing Enquiry</h1>
+<p>Werkvergunning bewerken</p>
 
+<%# if can? :manage, Enquiry %>
+<%# render 'adminform' %>
+<%#end%>
+
+<% if can? :edit, Enquiry %>
 <%= render 'form' %>
 
 <%= link_to 'Show', @enquiry %> |
 <%= link_to 'Back', enquiries_path %>
+<%end%>

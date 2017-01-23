@@ -41,6 +41,9 @@ gem 'cancancan', '~> 1.10'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#voor het gebruik van find_all_by_measurementtype in het formulier. Is een methode uit rails 3, vandaar deprecated.
+gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

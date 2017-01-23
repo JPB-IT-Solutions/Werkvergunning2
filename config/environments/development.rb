@@ -39,9 +39,24 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+#
+  #Vanaf dit nog implementeren in overige omgevingen!
+  #
+
 
   #voor de user athenticatie:
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+# voor het mailen
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :authentication => :plain,
+      :address => "mail.jpbgroep.nl",
+      :port => 143,
+      #:domain => "mail.jpbgroep.nl",
+      :user_name => "marco.groenhof@jpbgroep.nl",
+      :password => "netwerkkabel"
+  }
 
 
 end

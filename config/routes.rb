@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :representatives
+  resources :contractors
   devise_for :users
   scope "/Admin" do
-    resources :users, :enquiries, :roles
+    resources :users, :enquiries, :roles, :contractors, :representatives
   end
 
   scope "/Aanvrager" do

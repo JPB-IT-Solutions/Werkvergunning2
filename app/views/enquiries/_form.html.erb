@@ -1,3 +1,4 @@
+<%= javascript_include_tag :defaults %>
 <%= form_for(@enquiry) do |f| %>
     <form role="form">
       <% if @enquiry.errors.any? %>
@@ -11,183 +12,276 @@
             </ul>
           </div>
       <% end %>
-      <p align="center">Algemene informatie</p>
-      <div class="form-group">
+      <h1 align="center">Vul de onderstaande velden in om een werkvergunning aan te vragen.</h1>
 
-        <%= f.fields_for :applicant do |a| %>
+      <div class="form-group ">
 
-            <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
-            <%= f.text_field :reference, :class => "form-control" %> <br>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-            <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
-            <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
-            <br>
-            <br>
+          <%= f.fields_for :applicant do |a| %>
 
-            <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
-            <%= f.text_area :description, :class => "form-control" %> <br>
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Aanvraag
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                      <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
+                      <%= f.text_field :reference, :class => "form-control" %> <br>
 
-            <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
-            <%= f.number_field :amount, :class => "form-control" %> <br>
+                      <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
+                      <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
+                      <br>
+                      <br>
 
-            <%= f.label :Datum %><br>
-            <%= f.datetime_select :date %> <br>
+                      <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
+                      <%= f.text_area :description, :class => "form-control" %> <br>
 
-            <%= a.label :Aanvrager %><br>
-            <%= a.text_field :name %> <br>
+                      <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
+                      <%= f.number_field :amount, :class => "form-control" %> <br>
 
-            <%= a.label :email %><br>
-            <%= a.text_field :email %> <br>
+                      <%= f.label :Datum %><br>
+                      <%= f.datetime_select :date %> <br>
 
-            <%= a.label :Aannemer %><br>
-            <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
+                      <%= a.label :Aanvrager %><br>
+                      <%= a.text_field :name %> <br>
+
+                      <%= a.label :email %><br>
+                      <%= a.text_field :email %> <br>
+
+                      <%= a.label :Aannemer %><br>
+                      <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+
+        <%# maatregelen %>
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Maatregelen
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+
+                    <%= render 'enquirymeasure_fields', {f: em} %>
+                    <br>
+                    <%= link_to_add_fields "Voeg maatregel toe", f, :enquirymeasures %>
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+        <%# gereedschap %>
+        <div class="form-group">
+          <%= f.fields_for :tools do |t| %>
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Gereedschap en apparatuur
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+
+                      <%= t.label :handgereedschap %><br>
+                      <%= t.text_field :handtool %>
+                      <br>
+
+                      <%= t.label :overig %><br>
+                      <%= t.text_area :other %>
+                      <br>
+                      <%= t.label :Motorvoertuig %>
+                      <%= t.check_box :motorvehicle %>
+                      <%= t.label :Compressor %>
+                      <%= t.check_box :compressor %>
+                      <%= t.label :Hoogwerker %>
+                      <%= t.check_box :ramp %>
+                      <%= t.label :Steiger %>
+                      <%= t.check_box :scaffold %>
+                      <%= t.label :Kraan %>
+                      <%= t.check_box :crane %>
+                      <%= t.label :Ladder %>
+                      <%= t.check_box :ladder %>
+                      <%= t.label :Aggregaat %>
+                      <%= t.check_box :generator %>
+                      <%= t.label :Tankladder %>
+                      <%= t.check_box :tankladder %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+
+        <div class="form-group">
+          <%= f.fields_for :gasmeters do |g| %>
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Metingen
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body">
+
+                      <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
+                      <%= g.datetime_select :date %><br>
+
+                      <%= g.label :tester %><br>
+                      <%= g.text_field :tester %> <br>
+
+                      <%= g.label :handtekening %><br>
+                      <%= g.text_field :signature %> <br>
+
+                      <%= g.label :Zuurstof %><br>
+                      <%= g.text_field :oxigen %> <br>
+
+                      <%= g.label :benodigd %>
+                      <%= g.check_box :o_needed %>
+                      <br>
+                      <%= g.label :continu %>
+                      <%= g.check_box :o_continu %> <br>
+
+
+                      <%= g.label :explosief %><br>
+                      <%= g.text_field :explosives %> <br>
+
+                      <%= g.label :benodigd %>
+                      <%= g.check_box :e_needed %> <br>
+
+                      <%= g.label :continu %><
+                      <%= g.check_box :e_continu %> <br>
+
+                      <%= g.label :Stof1, "Stof 1" %><br>
+                      <%= g.text_field :mat1 %> <br>
+
+                      <%= g.label :benodigd %>
+                      <%= g.check_box :mat1_needed %>
+
+                      <%= g.label :continu %>
+                      <%= g.check_box :mat1_continu %> <br>
+
+                      <%= g.label :Stof2, "Stof 2" %><br>
+                      <%= g.text_field :mat2 %> <br>
+
+                      <%= g.label :benodigd %>
+                      <%= g.check_box :mat2_needed %>
+
+                      <%= g.label :continu %>
+                      <%= g.check_box :mat2_continu %> <br>
+
+                      <%= g.label :Stof3, "Stof 3" %><br>
+                      <%= g.text_field :mat3 %> <br>
+
+                      <%= g.label :benodigd %>
+                      <%= g.check_box :mat3_needed %>
+
+                      <%= g.label :continu %>
+                      <%= g.check_box :mat3_continu %> <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+
+        <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw handtekening.</p>
+        <div class="form-group">
+          <%= f.fields_for :signatures do |s| %>
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                       Handtekening
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="panel-body">
+                      <%= f.fields_for :representatives do |sr| %>
+                          <%= s.label :Gemachtigde %><br>
+                          <%= s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
+                          <br>
+
+
+                          <%= s.label :datum %><br>
+                          <%= s.datetime_select :date %>
+
+                          <br>
+                          <%= s.label :Handtekening %><br>
+                          <%= s.text_field :signature %>
+
+                          <%# 17-1-2017 baseren van 1 dropdown op de andere %>
+
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                      <% end %>
+          <% end %>
+        </div>
+        <% if can? :manage, Enquiry %>
+            <div class="form-group">
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Collapsible Group Item #1
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                      <p> Goedkeuring van het formulier door JPB Groep</p>
+                      <%# if can? :manage, Enquiry %>
+                      <%= f.label :Goedgekeurd %>
+                      <%= f.check_box :approved %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            </div>
 
         <% end %>
-      </div>
-      <br>
-      <hr>
-      <p align="center">Benodigde maatregelen</p>
-      <br>
-
-      <%# maatregelen %>
-      <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-        <%= f.fields_for :enquirymeasures do |em| %>
-
-            <%= em.label :maatregel %>
-            <%= em.collection_select(:measurement_id, Measurement.all, :id, :measurement, prompt: true) %>
-            <br>
-            <%= em.label :Verantwoordelijke %>
-            <%= em.text_field :responsible %>
-            <%= em.label :nodig %>
-            <%= em.check_box :needed %>
-            <%= em.label :gereed %>
-            <%= em.check_box :done %>
-            <br>
-
-        <% end %>
-      </div>
-
-      <hr>
-      <p align="center">Gereedschap</p>
-
-      <%# gereedschap %>
-      <div class="form-group">
-        <%= f.fields_for :tools do |t| %>
-
-            <%= t.label :handgereedschap %><br>
-            <%= t.text_field :handtool %>
-            <br>
-
-            <%= t.label :overig %><br>
-            <%= t.text_area :other %>
-            <br>
-            <%= t.label :Motorvoertuig %>
-            <%= t.check_box :motorvehicle %>
-            <%= t.label :Compressor %>
-            <%= t.check_box :compressor %>
-            <%= t.label :Hoogwerker %>
-            <%= t.check_box :ramp %>
-            <%= t.label :Steiger %>
-            <%= t.check_box :scaffold %>
-            <%= t.label :Kraan %>
-            <%= t.check_box :crane %>
-            <%= t.label :Ladder %>
-            <%= t.check_box :ladder %>
-            <%= t.label :Aggregaat %>
-            <%= t.check_box :generator %>
-            <%= t.label :Tankladder %>
-            <%= t.check_box :tankladder %>
-
-        <% end %>
-      </div>
-      <br>
-      <hr>
-      <p align="center">Gasmetingen</p>
-      <br>
-      <div class="form-group">
-        <%= f.fields_for :gasmeters do |g| %>
-
-            <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
-            <%= g.datetime_select :date %><br>
-
-            <%= g.label :tester %><br>
-            <%= g.text_field :tester %> <br>
-
-            <%= g.label :handtekening %><br>
-            <%= g.text_field :signature %> <br>
-
-            <%= g.label :Zuurstof %><br>
-            <%= g.text_field :oxigen %> <br>
-
-            <%= g.label :benodigd %>
-            <%= g.check_box :o_needed %>
-            <br>
-            <%= g.label :continu %>
-            <%= g.check_box :o_continu %> <br>
+        </div>
+        <div class="actions">
+          <%= f.submit label="Verzend aanvraag" %>
+        </div>
+        </div>
 
 
-            <%= g.label :explosief %><br>
-            <%= g.text_field :explosives %> <br>
+        </div>
 
-            <%= g.label :benodigd %>
-            <%= g.check_box :e_needed %> <br>
-
-            <%= g.label :continu %><
-            <%= g.check_box :e_continu %> <br>
-
-            <%= g.label :Stof1, "Stof 1" %><br>
-            <%= g.text_field :mat1 %> <br>
-
-            <%= g.label :benodigd %>
-            <%= g.check_box :mat1_needed %>
-
-            <%= g.label :continu %>
-            <%= g.check_box :mat1_continu %> <br>
-
-            <%= g.label :Stof2, "Stof 2" %><br>
-            <%= g.text_field :mat2 %> <br>
-
-            <%= g.label :benodigd %>
-            <%= g.check_box :mat2_needed %>
-
-            <%= g.label :continu %>
-            <%= g.check_box :mat2_continu %> <br>
-
-            <%= g.label :Stof3, "Stof 3" %><br>
-            <%= g.text_field :mat3 %> <br>
-
-            <%= g.label :benodigd %>
-            <%= g.check_box :mat3_needed %>
-
-            <%= g.label :continu %>
-            <%= g.check_box :mat3_continu %> <br>
-
-        <% end %>
-      </div>
-
-
-      <hr>
-
-      <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw handtekening.</p>
-      <div class="form-group">
-        <%= f.fields_for :signatures do |s| %>
-            <%= f.fields_for :representatives do |sr| %>
-                <%= s.label :Gemachtigde %><br>
-                <%= s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
-                <br>
-                <%= s.label :datum %><br>
-                <%= s.datetime_select :date %>
-
-                <br>
-                <%= s.label :Handtekening %><br>
-                <%= s.text_field :signature %>
-
-            <% end %>
-        <% end %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-    </form>
+        </form>
 <% end %>
+

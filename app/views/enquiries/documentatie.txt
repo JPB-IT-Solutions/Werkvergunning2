@@ -29,3 +29,5 @@ Modificaties na de Scaffold niet gedaan! direct door naar volgende stappen gegaa
 !!!!!!
 http://localhost:3000/users/sign_in
 Om in te loggen!!
+
+Als je ergens de navbar aanpast, pas het dan bij alle index pagina's aan!!!
