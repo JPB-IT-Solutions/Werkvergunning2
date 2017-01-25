@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
-  #Foutafhandeling voor wanneer de gebruiker niet de juiste rechten heeft. (niet getest! )
+  #Foutafhandeling voor wanneer de gebruiker niet de juiste rechten heeft.
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json { head :forbidden, content_type: 'text/html' }

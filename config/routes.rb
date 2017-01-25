@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   resources :representatives
+  resources :signatures
+  resources :representatives
   resources :contractors
   devise_for :users
   scope "/Admin" do

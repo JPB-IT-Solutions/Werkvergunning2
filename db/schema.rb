@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118121241) do
+ActiveRecord::Schema.define(version: 20170125113708) do
 
   create_table "agreeds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20170118121241) do
     t.integer  "signature_id", limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "signature",    limit: 255
   end
 
   add_index "representatives", ["signature_id"], name: "index_representatives_on_signature_id", using: :btree

@@ -16,6 +16,17 @@
       <div class="form-group">
 
         <%= f.fields_for :applicant do |a| %>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Beheerdersaanvraag
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
 
             <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
             <%= f.text_field :reference, :class => "form-control" %> <br>
@@ -195,9 +206,17 @@
         <%= f.label :Goedgekeurd %>
         <%= f.check_box :approved %>
       </div>
+        </div>
+
+        </div>
+
+        </div>
+
+      </div>
+
 
       <div class="actions">
-        <%= f.submit %>
+        <%= f.submit label="opslaan als beheeerder" %>
       </div>
     </form>
 <% end %>

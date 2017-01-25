@@ -1,7 +1,7 @@
 De Signatures tabel word gebruikt voor het ondertekenen van de aanvraag door de goedgekeurde aanvrager!
 
 
-De nog te doen migrations
+Een voorbeeld van de uitgevoerde migraties:
 
 rails g model Tabelnaam :string equipment:string other:string enquiry:references
 
@@ -31,3 +31,21 @@ http://localhost:3000/users/sign_in
 Om in te loggen!!
 
 Als je ergens de navbar aanpast, pas het dan bij alle index pagina's aan!!!
+
+Te doen bij installatie:
+https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/standalone/oss/deploy_app_main.html
+vanuit console
+  bundle install voor het installeren van de gem's
+
+  rake db:create om de database te creeren
+  rake db:migrate om de tabellen etc aan te maken
+
+  rails s om de app te starten
+
+
+Beheerder heeft een uitgebrteider formulier voor het aanmaken van ene enquiry. in principe gebruikt hij hetzelfde formulier als een reguliere aanvrager!
+
+
+Show formulier links zijn verwijderd uit enquiry_index omdat de nested tables niet getoond kunnen worden.
+
+De admin kan via het admin menu gemachtigden, aannemers en bijhorende handtekeningen aanmaken.

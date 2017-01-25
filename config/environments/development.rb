@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
@@ -39,23 +39,27 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-#
+  #
   #Vanaf dit nog implementeren in overige omgevingen!
   #
 
-
   #voor de user athenticatie:
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-# voor het mailen
+  # voor het mailen
+  config.action_mailer.default_url_options = { host: '192.168.14.110', port: '3000'}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       :authentication => :plain,
       :address => "mail.jpbgroep.nl",
-      :port => 143,
-      #:domain => "mail.jpbgroep.nl",
+      :port => 25,
+      :ssl => false,
       :user_name => "marco.groenhof@jpbgroep.nl",
-      :password => "netwerkkabel"
+      :password => "netwerkkabel",
+      enable_starttls_auto: true,
+      :openssl_verify_mode => 'none'
   }
 
 

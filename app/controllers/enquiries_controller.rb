@@ -99,6 +99,7 @@ class EnquiriesController < ApplicationController
                                       signatures_attributes: [:id, :date, :signature, :representative_id],
                                       gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu]).merge(user_id: current_user.id)
 
+
     end
 
 

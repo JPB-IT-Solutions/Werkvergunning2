@@ -1,4 +1,30 @@
 <p id="notice"><%= notice %></p>
 
+
+<p>
+  <strong>ID:</strong>
+  <%= @representative.id %>
+</p>
+
+<p>
+  <strong>naam:</strong>
+  <%= @representative.name %>
+</p>
+
+<p>
+  <strong>email:</strong>
+  <%= @representative.email %>
+</p>
+
+<p>
+  <strong>telefoon:</strong>
+  <%= @representative.telephone %>
+</p>
+
+<p>
+  <strong>Handtekening:</strong>
+  <%= @representative.signature %>
+</p>
+
 <%= link_to 'Edit', edit_representative_path(@representative) %> |
 <%= link_to 'Back', representatives_path %>

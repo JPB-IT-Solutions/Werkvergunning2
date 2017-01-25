@@ -22,4 +22,11 @@ class Enquiry < ActiveRecord::Base
   accepts_nested_attributes_for :gasmeters
 
   belongs_to :user
+
+  #voor de goedkeuring mail
+ # after_create :deliver, :if => Enquiry.update {|p| p.approved}
+
+#  def deliver
+ #   ModelMailer.approved_enquiry_notification(self).deliver
+  #end
 end

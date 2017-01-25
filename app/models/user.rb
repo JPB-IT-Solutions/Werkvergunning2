@@ -25,4 +25,10 @@ class User < ActiveRecord::Base
   def aanvrager?
     self.role.name == "Aanvrager"
   end
+
+
+  after_create :send_welcome_mail
+  def send_welcome_mail
+    ModelMailer.welcome_email(self).deliver
+  end
 end
