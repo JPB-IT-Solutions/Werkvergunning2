@@ -47,6 +47,10 @@ gem 'mail'
 #voor het gebruik van find_all_by_measurementtype in het formulier. Is een methode uit rails 3, vandaar deprecated.
 gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
+#voor het printen naar PDF
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

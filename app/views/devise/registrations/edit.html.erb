@@ -13,7 +13,13 @@
     <%= f.email_field :email, autofocus: true %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div class="field">
+      <%= f.label :pincode %><br />
+      <%= f.text_field :pin %>
+    </div>
+
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 

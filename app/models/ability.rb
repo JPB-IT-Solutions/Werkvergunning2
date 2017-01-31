@@ -18,8 +18,8 @@ class Ability
       can :manage, :all
     elsif user.aanvrager?
       can :read, Enquiry
-      can :create, Enquiry
-      can :edit, Enquiry
+      can :create, :all
+      can :edit, :all
       #can :update, Enquiry do |enquiry|
       #enquiry.try(:user) == user
     end

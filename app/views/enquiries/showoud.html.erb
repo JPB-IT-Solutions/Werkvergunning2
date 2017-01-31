@@ -1,3 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>ID:</strong>
+  <%= @enquiry.id %>
+</p>
+
+<p>
+  <strong>Referentie:</strong>
+  <%= @enquiry.reference %>
+</p>
+
+<p>
+  <strong>Beschrijving:</strong>
+  <%= @enquiry.description %>
+</p>
+
+<p>
+  <strong>Locatie:</strong>
+  <%= @enquiry.location %>
+</p>
+
+<p>
+  <strong>Datum:</strong>
+  <%= @enquiry.date %>
+</p>
+
+<p>
+  <strong>Associated users:</strong>
+  <%= @assosciated_users %>
+</p>
+
+<p>
+  <strong>aantal uitvoerenden:</strong>
+  <%= @enquiry.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_enquiry_path(@enquiry) %>
+<%= link_to 'Back', root_path %>
+
+
+
+
+
+
 <%= javascript_include_tag :defaults %>
 <%= form_for (@enquiry) do |f| %>
     <form role="form">
@@ -33,7 +79,7 @@
                   <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
-                      <%= f.text_field :reference, :class => "form-control" %> <br>
+                      <%= f.text_field :reference, readonly: true, :class => "form-control" %> <br>
 
                       <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
                       <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
@@ -41,23 +87,24 @@
                       <br>
 
                       <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
-                      <%= f.text_area :description, :class => "form-control" %> <br>
+                      <%= f.text_area :description, readonly: true, :class => "form-control" %> <br>
 
                       <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
-                      <%= f.number_field :amount, :class => "form-control" %> <br>
+                      <%= f.number_field :amount, readonly: true, :class => "form-control" %> <br>
 
                       <%= f.label :Datum %><br>
                       <%= f.datetime_select :date %> <br>
 
                       <%= a.label :Aanvrager %><br>
-                      <%= a.text_field :name, :value => current_user.name %> <br>
+                      <%= a.text_field :name, readonly: true %> <br>
 
                       <%= a.label :email %><br>
-                      <%= a.text_field :email, :value => current_user.email, presence: true %> <br>
+                      <%= a.text_field :email, presence: true, readonly: true %> <br>
 
-                      <%= a.label :Bedrijf %><br>
-                      <%= a.text_field :company, :value => current_user.company, presence: true %>
 
+                      <%= a.label :Aannemer %><br>
+                      <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
+                      <%= @enquiry.errors.full_messages.first if @enquiry.errors.any? %>
                     </div>
                   </div>
                 </div>
@@ -106,13 +153,12 @@
                   <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
 
-
                       <%= t.label :handgereedschap %><br>
-                      <%= t.text_field :handtool %>
+                      <%= t.text_field :handtool, readonly: true %>
                       <br>
 
                       <%= t.label :overig %><br>
-                      <%= t.text_area :other %>
+                      <%= t.text_area :other, readonly: true %>
                       <br>
                       <%= t.label :Motorvoertuig %>
                       <%= t.check_box :motorvehicle %>
@@ -222,7 +268,7 @@
                   <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
                       <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                       Handtekening
+                        Handtekening
                       </a>
                     </h4>
                   </div>
@@ -238,8 +284,8 @@
                           <%= s.datetime_select :date %>
 
                           <br>
-                          <%= s.label :Pincode %><br>
-                          <%= s.text_field :pin %>
+                          <%= s.label :Handtekening %><br>
+                          <%= s.text_field :signature %>
 
                           <%# 17-1-2017 baseren van 1 dropdown op de andere %>
 
@@ -267,9 +313,8 @@
                       <%# if can? :manage, Enquiry %>
                       <%= f.label :Goedgekeurd %>
                       <%= f.check_box :approved %><br>
-                    </div>
 
-                          </div>
+                    </div>
                   </div>
                 </div>
               </div>

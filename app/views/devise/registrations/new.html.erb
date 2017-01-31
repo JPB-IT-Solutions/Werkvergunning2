@@ -8,10 +8,20 @@
       <%= f.text_field :name %>
     </div>
 
-  <div class="field">
+    <div class="field">
+      <%= f.label :bedrijf %><br />
+      <%= f.text_field :company %>
+    </div>
+
+    <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
+
+    <div class="field">
+      <%= f.label :pincode %><br />
+      <%= f.text_field :pin %>
+    </div>
 
   <div class="field">
     <%= f.label :password %>
@@ -25,6 +35,8 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
+
+
 
   <div class="actions">
     <%= f.submit "Sign up" %>

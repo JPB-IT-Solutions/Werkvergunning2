@@ -15,6 +15,8 @@ class EnquiriesController < ApplicationController
   # GET /enquiries/1
   # GET /enquiries/1.json
   def show
+    @enquiry = Enquiry.find(params[:id])
+
   end
 
   # GET /enquiries/new
@@ -26,6 +28,8 @@ class EnquiriesController < ApplicationController
     @enquiry.build_applicant
     @enquiry.signatures.build
     @enquiry.gasmeters.build
+    @enquiry.controls.build
+
        #@enquiry.enquirymeasures.build.build_measurement
   end
 
@@ -60,12 +64,14 @@ class EnquiriesController < ApplicationController
     end
   end
 
+  #approved_enquiry_notification
+
   # PATCH/PUT /enquiries/1
   # PATCH/PUT /enquiries/1.json
   def update
     @enquiry = Enquiry.find(params[:id])
      respond_to do |format|
-      if @enquiry.update(enquiry_params)
+       if @enquiry.update_attributes(enquiry_params)
         format.html { redirect_to @enquiry, notice: 'Enquiry was successfully updated.' }
         format.json { render :show, status: :ok, location: @enquiry }
       else
@@ -92,12 +98,15 @@ class EnquiriesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+  #25-1 MG alle attributes hadden ook :id
     def enquiry_params
-      params.require(:enquiry).permit(:id, :reference, :location, :description, :date, :amount, :approved, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
+      params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, :approved, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
                                       tools_attributes: [:id, :handtool, :other, :motorvehicle, :compressor, :ramp, :scaffold, :crane, :ladder, :generator, :tankladder],
                                         applicant_attributes: [:id, :name, :email, :contractor_id],
-                                      signatures_attributes: [:id, :date, :signature, :representative_id],
-                                      gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu]).merge(user_id: current_user.id)
+                                      signatures_attributes: [:id, :date, :pin, :representative_id],
+                                      gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu],
+                                      controls_attributes: [:id, :enquirycheck, :workspacecheck, :enquiry_id],
+                                      user_attributes: [:id, :name, :company]).merge(user_id: current_user.id)
 
 
     end

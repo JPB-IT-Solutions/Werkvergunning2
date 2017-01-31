@@ -49,3 +49,13 @@ Beheerder heeft een uitgebrteider formulier voor het aanmaken van ene enquiry. i
 Show formulier links zijn verwijderd uit enquiry_index omdat de nested tables niet getoond kunnen worden.
 
 De admin kan via het admin menu gemachtigden, aannemers en bijhorende handtekeningen aanmaken.
+
+let op!!!!!!
+Elke keer als de app een update krijg, voer dan ook even " rails g client_side_validations:copy_assets " uit in de console!
+
+
+
+validates_numericality_of :field_name, :in => 1..99
+
+
+    change_column (:signatures, :signature, :integer)

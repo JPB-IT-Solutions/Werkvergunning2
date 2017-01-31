@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125113708) do
+ActiveRecord::Schema.define(version: 20170130140242) do
 
   create_table "agreeds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -24,26 +24,14 @@ ActiveRecord::Schema.define(version: 20170125113708) do
   add_index "agreeds", ["enquiry_id"], name: "index_agreeds_on_enquiry_id", using: :btree
 
   create_table "applicants", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "email",         limit: 255
-    t.integer  "enquiry_id",    limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "contractor_id", limit: 4
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
+    t.integer  "enquiry_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "applicants", ["contractor_id"], name: "index_applicants_on_contractor_id", using: :btree
   add_index "applicants", ["enquiry_id"], name: "index_applicants_on_enquiry_id", using: :btree
-
-  create_table "contractors", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "email",        limit: 255
-    t.integer  "applicant_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "contractors", ["applicant_id"], name: "index_contractors_on_applicant_id", using: :btree
 
   create_table "controls", force: :cascade do |t|
     t.boolean  "enquirycheck"
@@ -143,11 +131,11 @@ ActiveRecord::Schema.define(version: 20170125113708) do
 
   create_table "signatures", force: :cascade do |t|
     t.datetime "date"
-    t.string   "signature",         limit: 255
     t.integer  "enquiry_id",        limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "representative_id", limit: 4
+    t.integer  "pin",               limit: 4
   end
 
   add_index "signatures", ["enquiry_id"], name: "index_signatures_on_enquiry_id", using: :btree
@@ -187,6 +175,8 @@ ActiveRecord::Schema.define(version: 20170125113708) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "company",                limit: 255
+    t.integer  "pin",                    limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -194,9 +184,7 @@ ActiveRecord::Schema.define(version: 20170125113708) do
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
   add_foreign_key "agreeds", "enquiries"
-  add_foreign_key "applicants", "contractors"
   add_foreign_key "applicants", "enquiries"
-  add_foreign_key "contractors", "applicants"
   add_foreign_key "controls", "enquiries"
   add_foreign_key "enquiries", "users"
   add_foreign_key "enquirymeasures", "enquiries"
