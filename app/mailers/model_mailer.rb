@@ -21,12 +21,25 @@ class ModelMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Welkom in het JPB Werkvergunningensysteem.')
   end
 
-  def confirmation_mail(user, enquiry)
-    @user = user
-    @enquiry = enquiry
+  def new_enquiry_email(applicant)
+    @applicant = applicant
+
     @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Uw werkvergunning is aangevraagd.')
+    mail(to: @applicant.email, subject: 'Uw werkvergunning is aangevraagd.')
   end
+
+  def new_enquiry_jpb(enquiry)
+    @enquiry = enquiry
+
+    @url  = 'http://example.com/login'
+    mail(to: 'marco.groenhof@jpbgroep.nl', subject: 'Nieuwe werkvergunning.')
+  end
+
+  def send_approved_enquiry(enquiry)
+    @enquiry = enquiry
+    mail(to: 'marco.groenhof@jpbgroep.nl', subject: " test")
+  end
+
 
 
 end

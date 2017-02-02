@@ -54,9 +54,6 @@
                       <%= a.text_field :email, readonly: true %> <br>
 
 
-                      <%= a.label :Aannemer %><br>
-                      <%= a.collection_select(:contractor_id, Contractor.all, :id, :name, prompt: true) %>
-
                     </div>
                   </div>
                 </div>
@@ -237,7 +234,7 @@
 
                           <br>
                           <%= s.label :Handtekening %><br>
-                          <%= s.text_field :signature, readonly: true %>
+                          <%= s.text_field :pin, readonly: true %>
 
                           <%# 17-1-2017 baseren van 1 dropdown op de andere %>
 

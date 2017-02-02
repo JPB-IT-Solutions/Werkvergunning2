@@ -9,14 +9,18 @@ class EnquiriesController < ApplicationController
   # GET /enquiries.json
   def index
    # @enquiries = Enquiry.all
+    #Toont de enquirys van alleen de ingelogde gebruiker!
     @enquirie = current_user.enquiries
+  end
+
+  def index2
+    @enquiry = Enquiry.all
   end
 
   # GET /enquiries/1
   # GET /enquiries/1.json
   def show
     @enquiry = Enquiry.find(params[:id])
-
   end
 
   # GET /enquiries/new
@@ -30,6 +34,7 @@ class EnquiriesController < ApplicationController
     @enquiry.gasmeters.build
     @enquiry.controls.build
 
+#@measurement = Measurement.new
        #@enquiry.enquirymeasures.build.build_measurement
   end
 
@@ -43,7 +48,10 @@ class EnquiriesController < ApplicationController
     @enquiry.build_applicant
     @enquiry.signatures.build
    @enquiry.gasmeters.build
-
+#test voor mailen na approved, 31-1-17
+    #if @enquiry.approved == '1'
+     # ModelMailer.enquiry_approved_mailer(self).deliver
+#end
   end
 
   # POST /enquiries
@@ -52,6 +60,7 @@ class EnquiriesController < ApplicationController
     @enquiry.user_id = current_user.id
     @enquiry = Enquiry.new(enquiry_params)
     #@enquiry.enquirymeasures.build
+
 
     respond_to do |format|
       if @enquiry.save

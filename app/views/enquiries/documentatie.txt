@@ -54,8 +54,7 @@ let op!!!!!!
 Elke keer als de app een update krijg, voer dan ook even " rails g client_side_validations:copy_assets " uit in de console!
 
 
-
-validates_numericality_of :field_name, :in => 1..99
-
-
-    change_column (:signatures, :signature, :integer)
+Mailfunctie:
+- mail naar gebruiker word verstuurd bij: nieuwe user, nieuwe werkvergunning
+- mail naar JPB bij: nieuwe werkvergunning
+Default SMTP Gegevens in config/development nog aanpassen!!!!

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130140242) do
+ActiveRecord::Schema.define(version: 20170202082935) do
 
   create_table "agreeds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20170130140242) do
   end
 
   add_index "applicants", ["enquiry_id"], name: "index_applicants_on_enquiry_id", using: :btree
+
+  create_table "contractors", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "email",        limit: 255
+    t.integer  "applicant_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "contractors", ["applicant_id"], name: "index_contractors_on_applicant_id", using: :btree
 
   create_table "controls", force: :cascade do |t|
     t.boolean  "enquirycheck"
@@ -67,6 +77,9 @@ ActiveRecord::Schema.define(version: 20170130140242) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "measurement_id", limit: 4
+    t.integer  "measurementid",  limit: 4
+    t.string   "description",    limit: 255
+    t.string   "type",           limit: 255
   end
 
   add_index "enquirymeasures", ["enquiry_id"], name: "index_enquirymeasures_on_enquiry_id", using: :btree
@@ -177,6 +190,7 @@ ActiveRecord::Schema.define(version: 20170130140242) do
     t.string   "last_sign_in_ip",        limit: 255
     t.string   "company",                limit: 255
     t.integer  "pin",                    limit: 4
+    t.string   "enquiry_id",             limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -185,6 +199,7 @@ ActiveRecord::Schema.define(version: 20170130140242) do
 
   add_foreign_key "agreeds", "enquiries"
   add_foreign_key "applicants", "enquiries"
+  add_foreign_key "contractors", "applicants"
   add_foreign_key "controls", "enquiries"
   add_foreign_key "enquiries", "users"
   add_foreign_key "enquirymeasures", "enquiries"

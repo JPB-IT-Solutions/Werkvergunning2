@@ -1,7 +1,9 @@
 class Enquiry < ActiveRecord::Base
 
-  has_many :enquirymeasures, dependent: :destroy
+  has_many :enquirymeasures, dependent: :destroy, inverse_of: :enquiry
   accepts_nested_attributes_for :enquirymeasures, :reject_if => lambda { |a| a[:responsible].blank? }, :allow_destroy => true
+has_many :measurements, through: :enquirymeasures
+
 
   has_many :tools, dependent: :destroy
   accepts_nested_attributes_for :tools, :reject_if => lambda { |a| a[:handtool].blank? }, :allow_destroy => true
@@ -24,18 +26,22 @@ class Enquiry < ActiveRecord::Base
   accepts_nested_attributes_for :user, reject_if: :all_blank
 
 
-  #voor de goedkeuring mail
-  #after_create :send_confirmation_mail
-  #def send_confirmation_mail
-  #  ModelMailer.new_enquiry_mail(self).deliver
- # end
 
-# after_update :send_approved_mail
- # def send_approved_mail
+  #31-1-17 M Groenhof
+
+ #after_update :send_approved_mail
+ #def send_approved_mail
   #"#{ #if params[:approved] == '1'
-   # if :approved == '1'
-   # ModelMailer.enquiry_approved_mailer(self).deliver
-   # end
+ #if @enquiry.approved == '1'
+ #ModelMailer.enquiry_approved_mailer(self).deliver
+ #end
 
   #  end
+
+  after_create :send_new_enquiry
+  def send_new_enquiry
+    ModelMailer.new_enquiry_jpb(self).deliver
   end
+
+
+end

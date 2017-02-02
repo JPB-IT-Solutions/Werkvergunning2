@@ -91,6 +91,70 @@
           <% end %>
         </div>
 
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingProduct">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+                      Product (vrij) verklaring
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseProduct" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingProduct">
+                  <div class="panel-body">
+                    <%= Measurement.where(measurementtype: 'product verklaring').find_each do |m| %>
+
+                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
+                            <%= em.text_field :measurementid, {:value => m.id} %>
+                            <%= em.text_field :type, {:value => m.measurementtype}%>
+                            <%= em.text_field :description, {:value => m.measurement}%>
+                            <%= em.check_box :needed %>
+                        <% end %>
+                    <% end %>
+
+                    <br>
+
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingelektrotechnisch">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseelektrotechnisch" aria-expanded="false" aria-controls="collapseelektrotechnisch">
+                      Elektrotechnische maatregelen
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseelektrotechnisch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingelektrotechnisch">
+                  <div class="panel-body">
+                    <%= Measurement.where(measurementtype: 'Elektrotechnisch').find_each do |m| %>
+
+                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
+                            <%= em.text_field :measurementid, {:value => m.id} %>
+                            <%= em.text_field :type, {:value => m.measurementtype}%>
+                            <%= em.text_field :description, {:value => m.measurement}%>
+                            <%= em.check_box :needed %>
+                        <% end %>
+                    <% end %>
+
+                    <br>
+
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
         <%# gereedschap %>
         <div class="form-group">
           <%= f.fields_for :tools do |t| %>

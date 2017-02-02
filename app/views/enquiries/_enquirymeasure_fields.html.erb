@@ -1,7 +1,7 @@
 <fieldset>
   <%# f.label was em.label %>
   <%= f.label :maatregel %>
-  <%= f.collection_select(:measurement_id, Measurement.all, :id, :measurement, {prompt: true}, {:multiple => true} ) %>
+  <%# f.collection_select(:measurement_id, Measurement.all, :id, :measurement, {prompt: true}, {:multiple => true} ) %>
   <br>
 
   <%= f.label :Verantwoordelijke %>
@@ -9,8 +9,12 @@
   <br>
   <%= f.label :nodig %>
   <%= f.check_box :needed %>
+  <% if can? :manage, Enquiry %>
   <%= f.label :gereed %>
   <%= f.check_box :done %>
+      <%end%>
+  <%= f.label :test %>
+  <%= f.check_box :needed %>
   <br>
   <%= f.collection_select(:measurement_id, Measurement.all.sort_by { |m|m.measurementtype}, :id, :type_and_measurement, {:prompt => 'Type | Maatregel'}, class: 'ui search dropdown' ) %>
 
