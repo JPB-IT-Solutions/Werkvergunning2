@@ -66,8 +66,8 @@
           <% end %>
         </div>
 
-
-        <%# maatregelen %>
+<% if false %>
+        <%# maatregelen op de oude manier, dus met dropdown box. Werkt dmv foreign key met measurements tabel. 1-02-2017 Marco Groenhof %>
         <div class="form-group"> <%# div voor het koppelen van maatregelen %>
           <%= f.fields_for :enquirymeasures do |em| %>
               <div class="panel panel-default">
@@ -90,7 +90,7 @@
 
           <% end %>
         </div>
-
+<%end%>
         <div class="form-group"> <%# div voor het koppelen van maatregelen %>
           <%= f.fields_for :enquirymeasures do |em| %>
               <div class="panel panel-default">
@@ -105,12 +105,14 @@
                   <div class="panel-body">
                     <%= Measurement.where(measurementtype: 'product verklaring').find_each do |m| %>
 
-                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%# <p><%= m.id %>. <%= m.measurement %></p> %>
                         <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.text_field :measurementid, {:value => m.id} %>
-                            <%= em.text_field :type, {:value => m.measurementtype}%>
-                            <%= em.text_field :description, {:value => m.measurement}%>
+                            <%= em.hidden_field :measurementid, {:value => m.id} %>
+                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
+                            <%= em.hidden_field :description, {:value => m.measurement}%>
                             <%= em.check_box :needed %>
+                            <%= em.label :Overig %>
+                            <%= em.text_field :other %>
                         <% end %>
                     <% end %>
 
@@ -139,14 +141,12 @@
 
                         <p><%= m.id %>. <%= m.measurement %></p>
                         <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.text_field :measurementid, {:value => m.id} %>
-                            <%= em.text_field :type, {:value => m.measurementtype}%>
-                            <%= em.text_field :description, {:value => m.measurement}%>
+                            <%= em.hidden_field :measurementid, {:value => m.id} %>
+                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
+                            <%= em.hidden_field :description, {:value => m.measurement}%>
                             <%= em.check_box :needed %>
                         <% end %>
                     <% end %>
-
-                    <br>
 
                   </div>
                 </div>
@@ -154,6 +154,99 @@
 
           <% end %>
         </div>
+
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingvergunninghouder">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsevergunninghouder" aria-expanded="false" aria-controls="collapsevergunninghouder">
+                      Maatregelen door vergunninghouder
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapsevergunninghouder" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingvergunninghouder">
+                  <div class="panel-body">
+                    <%= Measurement.where(measurementtype: 'vergunninghouder').find_each do |m| %>
+
+                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
+                            <%= em.hidden_field :measurementid, {:value => m.id} %>
+                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
+                            <%= em.hidden_field :description, {:value => m.measurement}%>
+                            <%= em.check_box :needed %>
+                        <% end %>
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingbrandpreventie">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsebrandpreventie" aria-expanded="false" aria-controls="collapsebrandpreventie">
+                      Brandpreventie maatregelen
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapsebrandpreventie" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingbrandpreventie">
+                  <div class="panel-body">
+                    <%= Measurement.where(measurementtype: 'brandpreventie').find_each do |m| %>
+
+                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
+                            <%= em.hidden_field :measurementid, {:value => m.id} %>
+                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
+                            <%= em.hidden_field :description, {:value => m.measurement}%>
+                            <%= em.check_box :needed %>
+                        <% end %>
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
+          <%= f.fields_for :enquirymeasures do |em| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingPBM">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePBM" aria-expanded="false" aria-controls="collapsePBM">
+                      Persoonlijke Beschermings Middelen
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapsePBM" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPBM">
+                  <div class="panel-body">
+                    <%= Measurement.where(measurementtype: 'PBM').find_each do |m| %>
+
+                        <p><%= m.id %>. <%= m.measurement %></p>
+                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
+                            <%= em.hidden_field :measurementid, {:value => m.id} %>
+                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
+                            <%= em.hidden_field :description, {:value => m.measurement}%>
+                            <%= em.check_box :needed %>
+                        <% end %>
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+
+          <% end %>
+        </div>
+
+
 
         <%# gereedschap %>
         <div class="form-group">
@@ -278,7 +371,7 @@
           <% end %>
         </div>
 
-        <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw handtekening.</p>
+        <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw pincode.</p>
         <div class="form-group">
           <%= f.fields_for :signatures do |s| %>
               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

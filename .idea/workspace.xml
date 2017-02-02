@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f98d5c3-8caa-4b36-9d07-e51b98ea7d3c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/enquiries/index2.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/model_mailer/new_enquiry_jpb.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/db/migrate/20170109121750_create_contractors.rb" afterPath="$PROJECT_DIR$/db/migrate/20170131121750_create_contractors.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/enquiries_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/enquiries_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/model_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/model_mailer.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/applicant.rb" afterPath="$PROJECT_DIR$/app/models/applicant.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/enquiry.rb" afterPath="$PROJECT_DIR$/app/models/enquiry.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/enquirymeasure.rb" afterPath="$PROJECT_DIR$/app/models/enquirymeasure.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/measurement.rb" afterPath="$PROJECT_DIR$/app/models/measurement.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/enquiries/_enquirymeasure_fields.html.erb" afterPath="$PROJECT_DIR$/app/views/enquiries/_enquirymeasure_fields.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/enquiries/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/enquiries/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/enquiries/documentatie.txt" afterPath="$PROJECT_DIR$/app/views/enquiries/documentatie.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/enquiries/index.html.erb" afterPath="$PROJECT_DIR$/app/views/enquiries/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/enquiries/show.html.erb" afterPath="$PROJECT_DIR$/app/views/enquiries/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/model_mailer/new_enquiry_email.html.erb" afterPath="$PROJECT_DIR$/app/views/model_mailer/new_enquiry_email.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/seeds.rb" afterPath="$PROJECT_DIR$/db/seeds.rb" />
     </list>
@@ -66,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/enquiries_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
-              <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,7 +61,7 @@
       <file leaf-file-name="index.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/enquiries/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-194">
+            <state relative-caret-position="1728">
               <caret line="96" column="22" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding />
             </state>
@@ -92,21 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_form.html.erb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="_form.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/enquiries/_form.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="137" column="76" lean-forward="false" selection-start-line="137" selection-start-column="60" selection-end-line="137" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="seeds.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/db/seeds.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="418">
+              <caret line="373" column="103" lean-forward="false" selection-start-line="373" selection-start-column="103" selection-end-line="373" selection-end-column="103" />
               <folding />
             </state>
           </provider>
@@ -115,10 +91,10 @@
       <file leaf-file-name="schema.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/schema.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="145" column="21" lean-forward="true" selection-start-line="145" selection-start-column="21" selection-end-line="145" selection-end-column="21" />
+            <state relative-caret-position="2610">
+              <caret line="146" column="21" lean-forward="false" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
               <folding>
-                <marker date="1486024924361" expanded="true" signature="8675:9124" ph="do ... end" />
+                <marker date="1486041459545" expanded="true" signature="8719:9168" ph="do ... end" />
               </folding>
             </state>
           </provider>
@@ -181,8 +157,8 @@
         <option value="$PROJECT_DIR$/app/models/measurement.rb" />
         <option value="$PROJECT_DIR$/app/models/enquiry.rb" />
         <option value="$PROJECT_DIR$/app/controllers/enquiries_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/enquiries/_form.html.erb" />
         <option value="$PROJECT_DIR$/db/seeds.rb" />
+        <option value="$PROJECT_DIR$/app/views/enquiries/_form.html.erb" />
       </list>
     </option>
   </component>
@@ -212,8 +188,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="RailsProjectView" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -470,7 +446,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -706,12 +682,13 @@
       <workItem from="1485762279189" duration="12973000" />
       <workItem from="1485848440581" duration="10484000" />
       <workItem from="1485934258320" duration="21324000" />
-      <workItem from="1486020941459" duration="6912000" />
+      <workItem from="1486020941459" duration="10538000" />
+      <workItem from="1486039573437" duration="5268000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="272268000" />
+    <option name="totallyTimeSpent" value="281162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="999" extended-state="0" />
@@ -722,19 +699,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3409091" sideWeight="0.50313973" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3409091" sideWeight="0.4968603" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -748,7 +725,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="ruby-line">
           <url>file://$PROJECT_DIR$/db/schema.rb</url>
-          <line>209</line>
+          <line>210</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" type="ruby-line">
           <url>file://$PROJECT_DIR$/app/views/enquiries/_enquirymeasure_fields.html.erb</url>
@@ -823,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6066">
           <caret line="337" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1033,14 +1009,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/enquiries_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1057,7 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="50" lean-forward="false" selection-start-line="2" selection-start-column="50" selection-end-line="2" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,7 +1039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="45" lean-forward="false" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1079,7 +1052,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/enquiries/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-194">
+        <state relative-caret-position="1728">
           <caret line="96" column="22" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding />
         </state>
@@ -1087,26 +1060,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/schema.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="145" column="21" lean-forward="true" selection-start-line="145" selection-start-column="21" selection-end-line="145" selection-end-column="21" />
+        <state relative-caret-position="2610">
+          <caret line="146" column="21" lean-forward="false" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
           <folding>
-            <marker date="1486024924361" expanded="true" signature="8675:9124" ph="do ... end" />
+            <marker date="1486041459545" expanded="true" signature="8719:9168" ph="do ... end" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/enquiries/_form.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="137" column="76" lean-forward="false" selection-start-line="137" selection-start-column="60" selection-end-line="137" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db/seeds.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="215">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/enquiries/_form.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="373" column="103" lean-forward="false" selection-start-line="373" selection-start-column="103" selection-end-line="373" selection-end-column="103" />
           <folding />
         </state>
       </provider>

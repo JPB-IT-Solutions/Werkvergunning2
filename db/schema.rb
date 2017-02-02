@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202082935) do
+ActiveRecord::Schema.define(version: 20170202125623) do
 
   create_table "agreeds", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170202082935) do
     t.integer  "measurementid",  limit: 4
     t.string   "description",    limit: 255
     t.string   "type",           limit: 255
+    t.string   "other",          limit: 255
   end
 
   add_index "enquirymeasures", ["enquiry_id"], name: "index_enquirymeasures_on_enquiry_id", using: :btree
