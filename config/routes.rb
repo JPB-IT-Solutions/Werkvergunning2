@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
+  get "search/index"
 
 root 'enquiries#index'
   get 'welcome/Index'

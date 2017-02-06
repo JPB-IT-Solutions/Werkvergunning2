@@ -58,3 +58,6 @@ Mailfunctie:
 - mail naar gebruiker word verstuurd bij: nieuwe user, nieuwe werkvergunning
 - mail naar JPB bij: nieuwe werkvergunning
 Default SMTP Gegevens in config/development nog aanpassen!!!!
+
+06-02-2017
+Voor zoekfunctie: https://github.com/activerecord-hackery/ransack

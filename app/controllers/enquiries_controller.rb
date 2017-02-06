@@ -10,12 +10,17 @@ class EnquiriesController < ApplicationController
   def index
    # @enquiries = Enquiry.all
     #Toont de enquirys van alleen de ingelogde gebruiker!
-    @enquirie = current_user.enquiries
+
+   if can? :manage, @enquiry
+        @enquiry  = Enquiry.all.paginate(:page => params[:page], per_page: 10)
+        @enquirie= Enquiry.all.paginate(:page => params[:page], per_page: 10).order(date: :desc)
+
+   else
+    @enquirie = current_user.enquiries.paginate(:page => params[:page], per_page: 10).order(date: :desc)
+   end
+
   end
 
-  def index2
-    @enquiry = Enquiry.all
-  end
 
   # GET /enquiries/1
   # GET /enquiries/1.json
@@ -111,7 +116,7 @@ class EnquiriesController < ApplicationController
     def enquiry_params
       params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, :approved, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
                                       tools_attributes: [:id, :handtool, :other, :motorvehicle, :compressor, :ramp, :scaffold, :crane, :ladder, :generator, :tankladder],
-                                        applicant_attributes: [:id, :name, :email, :contractor_id],
+                                        applicant_attributes: [:id, :name, :email, :contractor_id, :pin],
                                       signatures_attributes: [:id, :date, :pin, :representative_id],
                                       gasmeters_attributes: [:id, :date, :tester, :signature, :oxigen, :o_needed, :o_continu, :explosives, :e_needed, :e_continu, :mat1, :mat1_needed, :mat1_continu, :mat2, :mat2_needed, :mat2_continu, :mat3, :mat3_needed, :mat3_continu],
                                       controls_attributes: [:id, :enquirycheck, :workspacecheck, :enquiry_id],

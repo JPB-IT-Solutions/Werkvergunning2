@@ -44,4 +44,5 @@ has_many :measurements, through: :enquirymeasures
   end
 
 
+
 end

@@ -73,6 +73,8 @@
       <p>Binnen dit systeem kunt u nieuwe werkvergunningen aanvragen indien u van plan bent</p>
       <p> werkzaamheden te gaan verrichten op een van onze locatie's.</p>
 
+
+
     </div>
   </div>
 </div>
@@ -82,8 +84,11 @@
 <br>
 <hr>
 <br>
+
 <% if @enquirie.present? %>
+    <%= will_paginate @enquirie %>
 <table class="table table-striped">
+
   <thead>
   <tr>
     <th>Referentie</th>

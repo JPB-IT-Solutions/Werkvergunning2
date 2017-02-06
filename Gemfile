@@ -51,6 +51,12 @@ gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finder
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+#voor het opdelen van de tabel op index.html.erb in meerdere pagina's:
+gem 'will_paginate', '~> 3.1.1'
+
+#zoekfunctie
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

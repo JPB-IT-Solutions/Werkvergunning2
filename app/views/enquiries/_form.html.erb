@@ -58,6 +58,10 @@
                       <%= a.label :Bedrijf %><br>
                       <%= a.text_field :company, :value => current_user.company, presence: true %>
 
+                      <%# Marco Groenhof 6-2-2017: Hier word de pincode bij de aanvrager weggeschreven voor eenvoudige pin controle door een controleur. %>
+                      <%= a.label :pincode %><br>
+                      <%= a.text_field :pin, :value => current_user.pin %> <br>
+
                     </div>
                   </div>
                 </div>
@@ -387,9 +391,10 @@
                     <div class="panel-body">
                       <%= f.fields_for :representatives do |sr| %>
                           <%= s.label :Gemachtigde %><br>
-                          <%= s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
-                          <br>
+                          <%# s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
+                          <%= s.text_field :name, :value => current_user.name %> <br>
 
+                          <br>
 
                           <%= s.label :datum %><br>
                           <%= s.datetime_select :date %>
@@ -397,8 +402,6 @@
                           <br>
                           <%= s.label :Pincode %><br>
                           <%= s.text_field :pin %>
-
-                          <%# 17-1-2017 baseren van 1 dropdown op de andere %>
 
                           </div>
                           </div>
