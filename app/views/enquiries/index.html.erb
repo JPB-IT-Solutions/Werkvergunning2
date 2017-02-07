@@ -84,9 +84,39 @@
 <br>
 <hr>
 <br>
+<div>
 
+  <%= grid(@tasks_grid) do |g|
+
+    g.column name: 'ID', attribute: 'id' do |enq|
+      enq.id
+    end
+
+    g.column name: 'Referentie', attribute: 'reference' do |enq|
+      enq.reference
+    end
+
+    g.column name: 'User_id', attribute: 'user_id' do |enq|
+      enq.user_id
+    end
+
+
+    g.column name: 'Beschrijving', attribute: 'description' do |enq|
+      enq.description
+    end
+
+    g.column name: 'Locatie', attribute: 'location' do |enq|
+      enq.location
+    end
+
+    g.column do |enq|
+      link_to('Edit', edit_enquiry_path(enq))
+    end
+  end -%>
+
+</div>
 <% if @enquirie.present? %>
-    <%= will_paginate @enquirie %>
+
 <table class="table table-striped">
 
   <thead>

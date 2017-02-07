@@ -12,11 +12,12 @@ class EnquiriesController < ApplicationController
     #Toont de enquirys van alleen de ingelogde gebruiker!
 
    if can? :manage, @enquiry
-        @enquiry  = Enquiry.all.paginate(:page => params[:page], per_page: 10)
-        @enquirie= Enquiry.all.paginate(:page => params[:page], per_page: 10).order(date: :desc)
-
+        #@enquiry  = Enquiry.all
+        #@enquirie= Enquiry.all
+        @tasks_grid = initialize_grid(Enquiry, order: 'id', per_page: 15)
    else
-    @enquirie = current_user.enquiries.paginate(:page => params[:page], per_page: 10).order(date: :desc)
+    @enquirie = current_user.enquiries
+    @tasks_grid = initialize_grid(Enquiry, order: 'id', per_page: 15, conditions: ['user_id = ?', @current_user])
    end
 
   end

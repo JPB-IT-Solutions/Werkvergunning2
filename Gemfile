@@ -51,11 +51,11 @@ gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finder
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-#voor het opdelen van de tabel op index.html.erb in meerdere pagina's:
-gem 'will_paginate', '~> 3.1.1'
+#voor het opdelen van de tabel op index.html.erb in meerdere pagina's: will_paginate
 
-#zoekfunctie
-gem 'ransack', github: 'activerecord-hackery/ransack'
+#zoekfunctie en sorteerfunctie
+gem "wice_grid", '3.6.0.pre4'
+gem 'font-awesome-sass',  '~> 4.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
