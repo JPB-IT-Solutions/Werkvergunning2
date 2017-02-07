@@ -86,117 +86,41 @@
 <br>
 <div>
 
-  <%= grid(@tasks_grid) do |g|
+  <%= grid(@tasks_grid, show_filters: :always) do |g|
 
-    g.column name: 'ID', attribute: 'id' do |enq|
+    g.column name: 'ID', attribute: 'id' , auto_reload: true do |enq|
       enq.id
     end
 
-    g.column name: 'Referentie', attribute: 'reference' do |enq|
+    g.column name: 'Referentie', attribute: 'reference', auto_reload: true do |enq|
       enq.reference
     end
 
-    g.column name: 'User_id', attribute: 'user_id' do |enq|
-      enq.user_id
-    end
 
 
-    g.column name: 'Beschrijving', attribute: 'description' do |enq|
+
+    g.column name: 'Beschrijving', attribute: 'description', auto_reload: true do |enq|
       enq.description
     end
 
-    g.column name: 'Locatie', attribute: 'location' do |enq|
+    g.column name: 'Locatie', attribute: 'location', auto_reload: true do |enq|
       enq.location
     end
+
+    if can? :manage, @enquiry
+   #      g.column name: 'Aanvrager', attribute: 'name', assoc: :applicant do |enquiry|
+    #  enquiry.applicant.name
+     #end
+
+     #end
+
+
+      g.column name:  'Aanvrager', attribute: 'name',  assoc: :applicant, auto_reload: true
+      end
 
     g.column do |enq|
       link_to('Edit', edit_enquiry_path(enq))
     end
-  end -%>
+  end %>
 
 </div>
-<% if @enquirie.present? %>
-
-<table class="table table-striped">
-
-  <thead>
-  <tr>
-    <th>Referentie</th>
-    <th>Omschrijving</th>
-    <th>locatie</th>
-    <th>Datum</th>
-  </tr>
-  </thead>
-  <tbody>
-
-      <% @enquirie.each do |enquiry| %>
-
-          <tr>
-            <td>
-              <%= enquiry.reference %>
-            </td>
-            <td>
-              <%= enquiry.description %>
-            </td>
-            <td>
-              <%= enquiry.location %>
-            </td>
-            <td>
-              <%= enquiry.date %>
-            </td>
-
-            <td><%= link_to 'Show', enquiry, class: 'btn btn-primary btn-xs' %></td>
-            <td><%= link_to 'Edit', edit_enquiry_path(enquiry), class: 'btn btn-info btn-xs'  %></td>
-            <% if can? :manage, Enquiry %>
-            <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'  %></td>
-          <%end%>
-                </tr>
-          <%end%>
-  </tbody>
-</table>
-
-          <% else %>
-    <% if can? :manage, @enquiry %>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Referentie</th>
-        <th>Omschrijving</th>
-        <th>locatie</th>
-        <th>Datum</th>
-        <th>Aanvrager</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @enquiries.eager_load(:user).each do |enquiry| %>
-          <%# @enquiries.each do |enquiry| %>
-                     <tr>
-                <td>
-                  <%= enquiry.reference %>
-                </td>
-                <td>
-                  <%= enquiry.description %>
-                </td>
-                <td>
-                  <%= enquiry.location %>
-                </td>
-                <td>
-                  <%= enquiry.date %>
-                </td>
-                <td>
-                  <%= enquiry.user_id%>
-
-                </td><td>
-                       <%= enquiry.user.try(:name) %></td>
-
-
-                       <td><%= link_to 'Show', enquiry, class: 'btn btn-primary btn-xs' %></td>
-                <td><%= link_to 'Edit', edit_enquiry_path(enquiry), class: 'btn btn-info btn-xs'  %></td>
-                <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'  %></td>
-              </tr>
-<%end%>
-      <% end %>
-
-</tbody>
-      </table>
-  <% end %>

@@ -42,7 +42,6 @@ if defined?(Wice::Defaults)
 
   # A boolean value specifying if a change in a filter triggers reloading of the grid.
   Wice::Defaults::AUTO_RELOAD = false
-
   # SQL operator used for matching strings in string filters.
   Wice::Defaults::STRING_MATCHING_OPERATOR = 'LIKE'
   # STRING_MATCHING_OPERATOR = 'ILIKE' # Use this for Postgresql case-insensitive matching.
