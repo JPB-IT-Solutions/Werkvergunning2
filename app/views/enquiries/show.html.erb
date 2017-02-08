@@ -272,17 +272,30 @@
                         <div class="panel-body">
                           <p> Goedkeuring van het formulier door JPB Groep</p>
                           <% if can? :manage, Enquiry %>
-                              <%= f.label :Goedgekeurd %>
-                              <%= f.check_box :approved, disabled: true %><br>
+                              <%= f.label :Status %>
+                              <%= f.select :status, [['in aanvraag', 'in aanvraag'],['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control"   %><br>
+
+                              <%= f.fields_for :signatures do |si| %>
+
+                                  <%= si.label :pincode %>
+                                  <%= si.number_field :pin %>
+
+                              <%end%>
 
                               <%= f.fields_for :controls do |c| %>
 
                                   <%= c.label :vergunning_gecontroleerd, "vergunning is gecontroleerd" %>
                                   <%= c.check_box :enquirycheck, disabled: true %><br>
                                   <%= c.label :werkplek_gecontroleerd, "werklocatie is gecontroleerd" %>
-                                  <%= c.check_box :workspacecheck, disabled: trues %>
+                                  <%= c.check_box :workspacecheck, disabled: true %>
                               <% end %>
-                          <% end %>
+
+                              <%else%>
+                              <%= f.label :Status %>
+                              <%= f.select :status, [['in aanvraag', 'in aanvraag'],['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control", disabled: true   %><br>
+
+
+                        <% end %>
 
                         </div>
                       </div>

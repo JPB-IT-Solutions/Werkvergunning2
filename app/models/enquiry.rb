@@ -30,13 +30,12 @@ has_many :measurements, through: :enquirymeasures
   #31-1-17 M Groenhof
 
  #after_update :send_approved_mail
- #def send_approved_mail
-  #"#{ #if params[:approved] == '1'
- #if @enquiry.approved == '1'
+# def send_approved_mail
+ ##{ #if params[:approved] == '1'
+ #if :approved == '1'
  #ModelMailer.enquiry_approved_mailer(self).deliver
  #end
-
-  #  end
+ #end
 
   after_create :send_new_enquiry
   def send_new_enquiry

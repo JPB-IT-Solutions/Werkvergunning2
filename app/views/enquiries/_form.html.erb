@@ -48,7 +48,7 @@
 
                       <%= f.label :Datum %><br>
                       <%= f.datetime_select :date %> <br>
-
+                      <% if cannot? :manage, Enquiry %>
                       <%= a.label :Aanvrager %><br>
                       <%= a.text_field :name, :value => current_user.name %> <br>
 
@@ -61,7 +61,7 @@
                       <%# Marco Groenhof 6-2-2017: Hier word de pincode bij de aanvrager weggeschreven voor eenvoudige pin controle door een controleur. %>
                       <%= a.label :pincode %><br>
                       <%= a.text_field :pin, :value => current_user.pin %> <br>
-
+<%end%>
                     </div>
                   </div>
                 </div>
@@ -424,9 +424,25 @@
                   <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <p> Goedkeuring van het formulier door JPB Groep</p>
-                      <%# if can? :manage, Enquiry %>
-                      <%= f.label :Goedgekeurd %>
-                      <%= f.check_box :approved %><br>
+
+                      <%= f.label :Status %>
+                      <%= f.select :status, [['in aanvraag', 'in aanvraag'],['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control"   %><br>
+
+                      <%= f.fields_for :signatures do |si| %>
+
+                      <%= si.label :pincode %>
+                          <%= si.number_field :pin %>
+
+                      <%end%>
+
+                      <%= f.fields_for :controls do |c| %>
+
+                          <%= c.label :vergunning_gecontroleerd, "vergunning is gecontroleerd" %>
+                          <%= c.check_box :enquirycheck %><br>
+                          <%= c.label :werkplek_gecontroleerd, "werklocatie is gecontroleerd" %>
+                          <%= c.check_box :workspacecheck %>
+                      <% end %>
+
                     </div>
 
                           </div>

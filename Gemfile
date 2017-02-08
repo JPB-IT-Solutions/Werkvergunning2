@@ -56,6 +56,8 @@ gem 'wkhtmltopdf-binary'
 #zoekfunctie en sorteerfunctie
 gem "wice_grid", '3.6.0.pre4'
 gem 'font-awesome-sass',  '~> 4.3'
+#oudere versie van meta_request, anders werkt edit e.d. niet!
+gem "meta_request",       "0.2.5"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -74,7 +76,7 @@ group :development do
   gem 'rails_admin'
 
   #voor het debuggen in Chrome met RailsPanel
-  gem 'meta_request'
+  #gem 'meta_request'
   gem 'better_errors'
 end
 

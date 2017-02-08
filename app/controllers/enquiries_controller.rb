@@ -115,7 +115,7 @@ class EnquiriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
   #25-1 MG alle attributes hadden ook :id
     def enquiry_params
-      params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, :approved, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
+      params.require(:enquiry).permit(:reference, :location, :description, :date, :amount, :approved, :status, enquirymeasures_attributes: [:id, :responsible, :done, :needed, :measurement_id, :user],
                                       tools_attributes: [:id, :handtool, :other, :motorvehicle, :compressor, :ramp, :scaffold, :crane, :ladder, :generator, :tankladder],
                                         applicant_attributes: [:id, :name, :email, :contractor_id, :pin],
                                       signatures_attributes: [:id, :date, :pin, :representative_id],

@@ -35,7 +35,7 @@ class ModelMailer < ApplicationMailer
     mail(to: 'marco.groenhof@jpbgroep.nl', subject: 'Nieuwe werkvergunning.')
   end
 
-  def send_approved_enquiry(enquiry)
+  def send_approved_mail(enquiry)
     @enquiry = enquiry
     mail(to: 'marco.groenhof@jpbgroep.nl', subject: " test")
   end

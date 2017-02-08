@@ -19,7 +19,9 @@ class Ability
     elsif user.aanvrager?
       can :read, Enquiry
       can :create, :all
-      can :edit, :all
+      can :edit, Enquiry
+      can :autofill_boxes, User if user.aanvrager
+
       #can :update, Enquiry do |enquiry|
       #enquiry.try(:user) == user
     end

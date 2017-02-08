@@ -97,8 +97,6 @@
     end
 
 
-
-
     g.column name: 'Beschrijving', attribute: 'description', auto_reload: true do |enq|
       enq.description
     end
@@ -119,7 +117,14 @@
       end
 
     g.column do |enq|
-      link_to('Edit', edit_enquiry_path(enq))
+      #link_to('Edit', edit_enquiry_path(enq))
+       link_to 'Edit', edit_enquiry_path(enq), class: 'btn btn-info btn-xs'
+      end
+    g.column do |enq|
+        link_to 'Show', enq, class: 'btn btn-primary btn-xs'
+      end
+    g.column do |enq|
+       link_to 'Destroy', enq, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
     end
   end %>
 
