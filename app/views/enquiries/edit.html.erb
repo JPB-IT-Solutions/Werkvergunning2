@@ -1,3 +1,12 @@
+<div id='panel-wrapper'>
+  <div id='panel-header' class='text-center'>
+    <span class='panel-title'>JPB Werkvergunningen</span>
+  </div>
+  <div id='panel-body'>
+    <div class='row'>
+      <div class='col-md-12'>
+
+
 <p>Werkvergunning bewerken</p>
 
 <%# if can? :manage, Enquiry %>
@@ -5,8 +14,12 @@
 <%#end%>
 
 <% if can? :edit, Enquiry %>
-<%= render 'form' %>
+<%= render 'edit' %>
 
-<%= link_to 'Show', @enquiry %> |
-<%= link_to 'Back', enquiries_path %>
+<%= link_to 'Vorige', @enquiry %> |
+
 <%end%>
+      </div>
+      </div>
+    </div>
+  </div>

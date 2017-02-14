@@ -6,6 +6,7 @@ class RolesController < ApplicationController
   # GET /roles.json
   def index
     @roles = Role.all
+    @roles_grid = initialize_grid(Role, order: 'id', per_page: 15)
   end
 
   # GET /roles/1

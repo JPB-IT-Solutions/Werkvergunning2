@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
       format.js   { head :forbidden, content_type: 'text/html' }
     end
   end
+  layout :set_layout
+  def set_layout
+    if current_user
+      'application'
+    else
+      'login'
+    end
+  end
 
 
 end

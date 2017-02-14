@@ -1,44 +1,61 @@
+
+<div id='panel-wrapper'>
+  <div id='panel-header' class='text-center'>
+    <span class='panel-title'>JPB Werkvergunningen</span>
+  </div>
+  <div id='panel-body'>
+    <div class='row'>
+      <div class='col-md-12'>
+
 <p id="notice"><%= notice %></p>
 
 <div id="main-container" class="container-fluid">
   <div class="row">
-    <div id="sidebar" class="col-xs-3">
-      <!-- sidebar content -->
-      <%=link_to 'Werkvergunningen', enquiries_path, class: 'btn btn-success' %><br>
-      <%= link_to 'Rollen', roles_path, class: 'btn btn-success' %><br>
-      <%= link_to 'Nieuwe gebruiker', new_user_path, class: 'btn btn-success' %><br>
-    </div>
 
     <div id="content" class="col-xs-9">
 
-<h1>Listing Users</h1>
+<p>Geregistreerde gebruikers</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <%= grid(@users_grid, show_filters: :always) do |g|
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-                <td><%= user.email %></td>
-        <td><%= user.role.name %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        g.column name: 'ID', attribute: 'id' , auto_reload: true do |user|
+          user.id
+        end
 
+        g.column name: 'Naam', attribute: 'name', auto_reload: true do |user|
+          user.name
+        end
+
+
+        g.column name: 'Email', attribute: 'email', auto_reload: true do |user|
+          user.email
+        end
+
+        g.column name: 'Rol', attribute: 'name', assoc: :role, auto_reload: true do |user|
+          user.role.name
+        end
+
+
+        g.column do |user|
+
+          link_to 'Edit', edit_user_path(user), class: 'btn btn-info btn-xs'
+        end
+        g.column do |user|
+          link_to 'Show', user, class: 'btn btn-primary btn-xs'
+        end
+        g.column do |user|
+          link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+        end
+      end %>
+      <%= link_to 'Rollen', roles_path, class: 'btn btn-success' %><br>
+      <%= link_to 'Nieuwe gebruiker', new_user_path, class: 'btn btn-success' %><br>
     </div>
   </div>
 </div>
 <br>
+      </div>
+    </div>
+  </div>
+</div>
+
 

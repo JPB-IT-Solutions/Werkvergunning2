@@ -18,6 +18,7 @@ class ModelMailer < ApplicationMailer
   def welcome_email(user)
     @user = user
     @url  = 'http://example.com/login'
+    @url2 = 'http://localhost:3000/users/password/new'
     mail(to: @user.email, subject: 'Welkom in het JPB Werkvergunningensysteem.')
   end
 
@@ -29,16 +30,16 @@ class ModelMailer < ApplicationMailer
   end
 
   def new_enquiry_jpb(enquiry)
-    @enquiry = enquiry
+   @enquiry = enquiry
 
-    @url  = 'http://example.com/login'
-    mail(to: 'marco.groenhof@jpbgroep.nl', subject: 'Nieuwe werkvergunning.')
-  end
+  @url  = 'http://example.com/login'
+ mail(to: 'marco.groenhof@jpbgroep.nl', subject: 'Nieuwe werkvergunning.')
+ end
 
-  def send_approved_mail(enquiry)
-    @enquiry = enquiry
-    mail(to: 'marco.groenhof@jpbgroep.nl', subject: " test")
-  end
+  #def send_approved_mail(enquiry)
+   # enquiry = enquiry
+    #mail(to: @enquiry.email, subject: " test")
+  #end
 
 
 

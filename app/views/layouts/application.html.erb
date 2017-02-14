@@ -2,23 +2,126 @@
 <html>
 <head>
   <title>Werkvergunning</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%=  stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous, 'data-turbolinks-track' => true " >
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous, 'data-turbolinks-track' => true ">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+  <%= stylesheet_link_tag "style" %>
 </head>
 <body>
-<% if user_signed_in? %>
-    U bent ingelogd als <%= current_user.email %>.
-    <%= link_to "Profiel bewerken", edit_user_registration_path %>
-    <%= link_to "Uitloggen", destroy_user_session_path, :method => :delete %>
-<% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-<% end %>
+<div id='top-bar'>
+  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+  <div class='row'>
+    <div id='search-wrapper' class='col-md-10 col-sm-10 col-xs-10'>
 
-<% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, id: "flash_#{name}" %>
-<% end %>
-<%= yield %>
+    </div>
+    <div class='col-md-2 col-sm-2 col-xs-2' id="logout-wrapper">
+    <!-- <span class='user-name'><%= current_user.name %></span> -->
 
+      <a href="/users/sign_out" data-method="delete" rel="nofollow" class="btn btn-default" id="logout"><i class="fa fa-power-off" aria-hidden="true"></i>
+        <span class='hidden-md-down'>
+         Uitloggen
+
+        </span></a>
+    </div>
+  </div>
+</div>
+<div id='wrapper'>
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class='sidebar-brand'>
+        <a href="#" class='text-center'>
+          <%= image_tag "logo.svg" %>
+        </a>
+      </li>
+      <li class='active'>
+        <a href="/Admin/enquiries">
+          <span class='menu-icon'>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+          </span>
+          <span class='menu-text'>
+            Home
+          </span>
+          <span class='arrow'>
+            <%= image_tag "arrow_white_left.svg" %>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="/Admin/enquiries/new">
+          <span class='menu-icon'>
+            <%= image_tag "tools_white.svg" %>
+           </span>
+          <span class='menu-text'>
+            Aanvragen
+            <%# link_to 'Werkvergunning aanvragen', new_enquiry_path %><br>
+          </span>
+          <span class='arrow'>
+            <%= image_tag "arrow_white_left.svg" %>
+          </span>
+        </a>
+      </li>
+
+      <% if can? :manage, Enquiry %>
+
+          <li>
+            <a href="/Admin/users">
+          <span class='menu-icon'>
+            <%= image_tag "user_white.svg" %>
+           </span>
+              <span class='menu-text'>
+            Gebruikers
+          </span>
+              <span class='arrow'>
+            <%= image_tag "arrow_white_left.svg" %>
+          </span>
+            </a>
+          </li>
+
+          <%end%>
+
+          </ul>
+  </div>
+  <div id='header-wrapper'>
+    <div class='row'>
+      <div class='col-md-12 form-group'>
+        <div id='user-details-wrapper'>
+          <div id='avatar-wrapper'>
+
+          </div>
+          <div id='user-data-wrapper'>
+
+            <span class='user-name'><%= current_user.name %></span>
+            <span class='user-data'><%= current_user.role.name %> <%= image_tag "mail_red.svg" %> <%= current_user.email %></span>
+
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="page-content-wrapper"><!--
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "flash_#{name}" %>
+  <% end %>-->
+
+  <%= yield %>
+  </div>
+</div>
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 </body>
 </html>

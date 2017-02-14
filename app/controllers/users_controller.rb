@@ -5,6 +5,11 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+
+      #@enquiry  = Enquiry.all
+      #@enquirie= Enquiry.all
+      @users_grid = initialize_grid(User, order: 'id', per_page: 15, include: :role)
+
   end
 
   # GET /users/1

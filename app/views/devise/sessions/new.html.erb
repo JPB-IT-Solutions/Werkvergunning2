@@ -1,26 +1,50 @@
-<h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :wachtwoord %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :onthouden %>
+<%#<form>%>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <div class="input-group">
+											<span class="input-group-addon" id="user-addon">
+                                  <%= image_tag "user_white.svg" %>
+											</span>
+        <%= f.email_field :email, autofocus: true, :placeholder => "email", :class => "form-control"  %>
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <div class="input-group">
+											<span class="input-group-addon" id="pwd-addon">
+                        <%= image_tag "lock_white.svg" %>
 
-<%= render "devise/shared/links" %>
+											</span>
+
+        <%= f.password_field :password, autocomplete: "off",:class => "form-control", :placeholder => "wachtwoord" %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row login-options">
+    <div class="col-md-6 text-xs-left">
+
+      <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me %>
+      <label>
+        Wachtwoord onthouden
+      </label>
+      <% end -%>
+    </div>
+    <div class="col-md-6 text-xs-right">
+      <span>Wachtwoord vergeten? Klik
+      <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+          <%= link_to "hier", new_password_path(resource_name) %></span>
+      <% end -%>
+    </div>
+  </div>
+  <button type="submit">Log in</button>
+
+    <%end%>
+
+<%# </form> %>
+
+
+

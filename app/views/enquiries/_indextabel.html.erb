@@ -1,0 +1,43 @@
+<%= grid(@tasks_grid, show_filters: :always, html: {class: 'my-grid'}, header_tr_html:  {class: 'my-header'}) do |g|
+
+ # g.column name: 'ID', attribute: 'id' , auto_reload: true, html: {style: 'font-weight: bold; text-align: center'} do |enq|
+  #  enq.id
+  #end
+
+  g.column name: 'Referentie', attribute: 'reference', auto_reload: true do |enq|
+    enq.reference
+  end
+
+  g.column name: 'Beschrijving', attribute: 'description', auto_reload: true do |enq|
+    enq.description
+  end
+
+  g.column name: 'Locatie', attribute: 'location', auto_reload: true do |enq|
+    enq.location
+  end
+
+  g.column name: 'Status', attribute: 'status', auto_reload: true do |enq|
+    enq.status
+  end
+
+  g.column name: 'Datum', attribute: 'date', auto_reload: true do |enq|
+  enq.date.strftime("%d-%m-%Y")
+  end
+
+
+  if can? :manage, @enquiry
+
+    g.column name:  'Aanvrager', attribute: 'name',  assoc: :applicant, auto_reload: true
+  end
+
+  g.column do |enq|
+    #link_to('Edit', edit_enquiry_path(enq))
+    link_to 'Edit', edit_enquiry_path(enq), class: 'btn btn-info btn-sm'
+  end
+  g.column do |enq|
+    link_to 'Show', enq, class: 'btn btn-primary btn-sm'
+  end
+  g.column do |enq|
+    link_to 'Destroy', enq, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'
+  end
+end %>

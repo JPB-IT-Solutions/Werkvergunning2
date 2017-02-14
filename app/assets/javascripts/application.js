@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require wice_grid
+//= require scripts
+//= require jquery-ui
 //= require_tree .

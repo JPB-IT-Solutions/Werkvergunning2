@@ -2,8 +2,7 @@ class Enquiry < ActiveRecord::Base
 
   has_many :enquirymeasures, dependent: :destroy, inverse_of: :enquiry
   accepts_nested_attributes_for :enquirymeasures, :reject_if => lambda { |a| a[:responsible].blank? }, :allow_destroy => true
-has_many :measurements, through: :enquirymeasures
-
+  has_many :measurements, through: :enquirymeasures
 
   has_many :tools, dependent: :destroy
   accepts_nested_attributes_for :tools, :reject_if => lambda { |a| a[:handtool].blank? }, :allow_destroy => true
@@ -22,26 +21,27 @@ has_many :measurements, through: :enquirymeasures
   accepts_nested_attributes_for :gasmeters, :reject_if => lambda { |a| a[:tester].blank? }, :allow_destroy => true
 
   belongs_to :user
-  has_one :user
   accepts_nested_attributes_for :user, reject_if: :all_blank
 
 
 
   #31-1-17 M Groenhof
 
- #after_update :send_approved_mail
-# def send_approved_mail
- ##{ #if params[:approved] == '1'
- #if :approved == '1'
- #ModelMailer.enquiry_approved_mailer(self).deliver
- #end
- #end
+ #after_update :send_approved_mail   Werkt niet!!!!! mogelijk wel als mailadres ook in enquiry tabel word opgeslagen
+#def send_approved_mail
+#{ #if params[:approved] == '1'
+#if :status == "goedgekeurd"
+#ModelMailer.send_approved_mail(self).deliver
+#end
 
-  after_create :send_new_enquiry
-  def send_new_enquiry
-    ModelMailer.new_enquiry_jpb(self).deliver
+ after_create :send_new_enquiry
+ def send_new_enquiry
+   ModelMailer.new_enquiry_jpb(self).deliver
+ end
+
+  def init
+
+    self.status ||= 'in aanvraag'         #will set the default value only if it's ni
   end
-
-
 
 end

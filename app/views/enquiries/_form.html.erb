@@ -1,5 +1,6 @@
 <%= javascript_include_tag :defaults %>
 <%= form_for (@enquiry) do |f| %>
+
     <form role="form">
       <% if @enquiry.errors.any? %>
           <div id="error_explanation">
@@ -12,457 +13,429 @@
             </ul>
           </div>
       <% end %>
-      <h1 align="center">Vul de onderstaande velden in om een werkvergunning aan te vragen.</h1>
-      <p>Vergeet niet uw emailadres in te vullen. Zonder een geldig mailadres zal de aanvraag niet worden aangemaakt.</p>
+      <p align="center">Vul de onderstaande velden in om een werkvergunning aan te vragen.</p>
 
       <div class="form-group ">
 
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <%= f.fields_for :applicant do |a| %>
 
-          <%= f.fields_for :applicant do |a| %>
-
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Aanvraag
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                      <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
-                      <%= f.text_field :reference, :class => "form-control" %> <br>
-
-                      <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
-                      <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
-                      <br>
-                      <br>
-
-                      <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
-                      <%= f.text_area :description, :class => "form-control" %> <br>
-
-                      <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
-                      <%= f.number_field :amount, :class => "form-control" %> <br>
-
-                      <%= f.label :Datum %><br>
-                      <%= f.datetime_select :date %> <br>
-                      <% if cannot? :manage, Enquiry %>
-                      <%= a.label :Aanvrager %><br>
-                      <%= a.text_field :name, :value => current_user.name %> <br>
-
-                      <%= a.label :email %><br>
-                      <%= a.text_field :email, :value => current_user.email, presence: true %> <br>
-
-                      <%= a.label :Bedrijf %><br>
-                      <%= a.text_field :company, :value => current_user.company, presence: true %>
-
-                      <%# Marco Groenhof 6-2-2017: Hier word de pincode bij de aanvrager weggeschreven voor eenvoudige pin controle door een controleur. %>
-                      <%= a.label :pincode %><br>
-                      <%= a.text_field :pin, :value => current_user.pin %> <br>
-<%end%>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-<% if false %>
-        <%# maatregelen op de oude manier, dus met dropdown box. Werkt dmv foreign key met measurements tabel. 1-02-2017 Marco Groenhof %>
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Maatregelen
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Algemene informatie
                     </a>
-                  </h4>
+                  </h5>
                 </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
 
-                    <%= render 'enquirymeasure_fields', {f: em} %>
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="card-block">
+                    <%= f.label :Referentie, :class => "col-sm-2 control-label" %>
+                    <%= f.text_field :reference, :class => "form-control" %> <br>
+
+                    <%= f.label :Locatie, :class => "col-sm-2 control-label" %>
+                    <%= f.select :location, [['Chemiepark', 'chemiepark'], ['Winschoten', 'winschoten'], ['Farmsum', 'farmsum']], :class => "form-control" %>
                     <br>
-                    <%= link_to_add_fields "Voeg maatregel toe", f, :enquirymeasures %>
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-<%end%>
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingProduct">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
-                      Product (vrij) verklaring
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseProduct" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingProduct">
-                  <div class="panel-body">
-                    <%= Measurement.where(measurementtype: 'product verklaring').find_each do |m| %>
-
-                        <%# <p><%= m.id %>. <%= m.measurement %></p> %>
-                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.hidden_field :measurementid, {:value => m.id} %>
-                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
-                            <%= em.hidden_field :description, {:value => m.measurement}%>
-                            <%= em.check_box :needed %>
-                            <%= em.label :Overig %>
-                            <%= em.text_field :other %>
-                        <% end %>
-                    <% end %>
-
                     <br>
 
-                  </div>
-                </div>
-              </div>
+                    <%= f.label :Omschrijving, :class => "col-sm-2 control-label" %>
+                    <%= f.text_area :description, :class => "form-control" %> <br>
 
-          <% end %>
+                    <%= f.label :Aantal_uitvoerenden, :class => "col-sm-2 control-label" %>
+                    <%= f.number_field :amount, max: 9999, :class => "form-control" %> <br>
+
+                    <%= f.label :Datum %><br>
+                    <%= f.datetime_select :date %> <br>
+
+                    <%= a.label :Aanvrager %><br>
+                    <%= a.text_field :name, :value => current_user.name %> <br>
+
+                    <%= a.label :email %><br>
+                    <%= a.text_field :email, :value => current_user.email, presence: true %> <br>
+
+                    <%= a.label :Bedrijf %><br>
+                    <%= a.text_field :company, :value => current_user.company, presence: true %>
+
+                    <%# Marco Groenhof 6-2-2017: Hier word de pincode bij de aanvrager weggeschreven voor eenvoudige pin controle door een controleur. %>
+
+        <% end %>
+        </div>
+        </div>
         </div>
 
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingelektrotechnisch">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseelektrotechnisch" aria-expanded="false" aria-controls="collapseelektrotechnisch">
-                      Elektrotechnische maatregelen
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseelektrotechnisch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingelektrotechnisch">
-                  <div class="panel-body">
-                    <%= Measurement.where(measurementtype: 'Elektrotechnisch').find_each do |m| %>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingTwo">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Product (vrij) verklaring
+              </a>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="card-block">
 
-                        <p><%= m.id %>. <%= m.measurement %></p>
-                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.hidden_field :measurementid, {:value => m.id} %>
-                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
-                            <%= em.hidden_field :description, {:value => m.measurement}%>
+              <%= f.fields_for :enquirymeasures do |em| %>
+
+
+                  <%= Measurement.where(measurementtype: 'product verklaring').find_each do |m| %>
+
+
+                      <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
+                          <%= em.hidden_field :measurementid, {:value => m.id} %>
+                          <%= em.hidden_field :type, {:value => m.measurementtype} %>
+                          <%= em.hidden_field :description, {:value => m.measurement} %>
+                          <p><%= m.measurement %>
                             <%= em.check_box :needed %>
-                        <% end %>
-                    <% end %>
 
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingvergunninghouder">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsevergunninghouder" aria-expanded="false" aria-controls="collapsevergunninghouder">
-                      Maatregelen door vergunninghouder
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapsevergunninghouder" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingvergunninghouder">
-                  <div class="panel-body">
-                    <%= Measurement.where(measurementtype: 'vergunninghouder').find_each do |m| %>
-
-                        <p><%= m.id %>. <%= m.measurement %></p>
-                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.hidden_field :measurementid, {:value => m.id} %>
-                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
-                            <%= em.hidden_field :description, {:value => m.measurement}%>
-                            <%= em.check_box :needed %>
-                        <% end %>
-                    <% end %>
-
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingbrandpreventie">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsebrandpreventie" aria-expanded="false" aria-controls="collapsebrandpreventie">
-                      Brandpreventie maatregelen
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapsebrandpreventie" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingbrandpreventie">
-                  <div class="panel-body">
-                    <%= Measurement.where(measurementtype: 'brandpreventie').find_each do |m| %>
-
-                        <p><%= m.id %>. <%= m.measurement %></p>
-                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.hidden_field :measurementid, {:value => m.id} %>
-                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
-                            <%= em.hidden_field :description, {:value => m.measurement}%>
-                            <%= em.check_box :needed %>
-                        <% end %>
-                    <% end %>
-
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-        <div class="form-group"> <%# div voor het koppelen van maatregelen %>
-          <%= f.fields_for :enquirymeasures do |em| %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingPBM">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePBM" aria-expanded="false" aria-controls="collapsePBM">
-                      Persoonlijke Beschermings Middelen
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapsePBM" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPBM">
-                  <div class="panel-body">
-                    <%= Measurement.where(measurementtype: 'PBM').find_each do |m| %>
-
-                        <p><%= m.id %>. <%= m.measurement %></p>
-                        <%= f.fields_for :enquirymeasures , :html => { :multipart => true } do |em| %>
-                            <%= em.hidden_field :measurementid, {:value => m.id} %>
-                            <%= em.hidden_field :type, {:value => m.measurementtype}%>
-                            <%= em.hidden_field :description, {:value => m.measurement}%>
-                            <%= em.check_box :needed %>
-                        <% end %>
-                    <% end %>
-
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-
-
-        <%# gereedschap %>
-        <div class="form-group">
-          <%= f.fields_for :tools do |t| %>
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Gereedschap en apparatuur
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-
-
-                      <%= t.label :handgereedschap %><br>
-                      <%= t.text_field :handtool %>
-                      <br>
-
-                      <%= t.label :overig %><br>
-                      <%= t.text_area :other %>
-                      <br>
-                      <%= t.label :Motorvoertuig %>
-                      <%= t.check_box :motorvehicle %>
-                      <%= t.label :Compressor %>
-                      <%= t.check_box :compressor %>
-                      <%= t.label :Hoogwerker %>
-                      <%= t.check_box :ramp %>
-                      <%= t.label :Steiger %>
-                      <%= t.check_box :scaffold %>
-                      <%= t.label :Kraan %>
-                      <%= t.check_box :crane %>
-                      <%= t.label :Ladder %>
-                      <%= t.check_box :ladder %>
-                      <%= t.label :Aggregaat %>
-                      <%= t.check_box :generator %>
-                      <%= t.label :Tankladder %>
-                      <%= t.check_box :tankladder %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-        </div>
-
-
-        <div class="form-group">
-          <%= f.fields_for :gasmeters do |g| %>
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingFour">
-                    <h4 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Metingen
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                    <div class="panel-body">
-
-                      <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
-                      <%= g.datetime_select :date %><br>
-
-                      <%= g.label :tester %><br>
-                      <%= g.text_field :tester %> <br>
-
-                      <%= g.label :handtekening %><br>
-                      <%= g.text_field :signature %> <br>
-
-                      <%= g.label :Zuurstof %><br>
-                      <%= g.text_field :oxigen %> <br>
-
-                      <%= g.label :benodigd %>
-                      <%= g.check_box :o_needed %>
-                      <br>
-                      <%= g.label :continu %>
-                      <%= g.check_box :o_continu %> <br>
-
-
-                      <%= g.label :explosief %><br>
-                      <%= g.text_field :explosives %> <br>
-
-                      <%= g.label :benodigd %>
-                      <%= g.check_box :e_needed %> <br>
-
-                      <%= g.label :continu %><
-                      <%= g.check_box :e_continu %> <br>
-
-                      <%= g.label :Stof1, "Stof 1" %><br>
-                      <%= g.text_field :mat1 %> <br>
-
-                      <%= g.label :benodigd %>
-                      <%= g.check_box :mat1_needed %>
-
-                      <%= g.label :continu %>
-                      <%= g.check_box :mat1_continu %> <br>
-
-                      <%= g.label :Stof2, "Stof 2" %><br>
-                      <%= g.text_field :mat2 %> <br>
-
-                      <%= g.label :benodigd %>
-                      <%= g.check_box :mat2_needed %>
-
-                      <%= g.label :continu %>
-                      <%= g.check_box :mat2_continu %> <br>
-
-                      <%= g.label :Stof3, "Stof 3" %><br>
-                      <%= g.text_field :mat3 %> <br>
-
-                      <%= g.label :benodigd %>
-                      <%= g.check_box :mat3_needed %>
-
-                      <%= g.label :continu %>
-                      <%= g.check_box :mat3_continu %> <br>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          <% end %>
-        </div>
-
-        <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw pincode.</p>
-        <div class="form-group">
-          <%= f.fields_for :signatures do |s| %>
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingFive">
-                    <h4 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                       Handtekening
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                    <div class="panel-body">
-                      <%= f.fields_for :representatives do |sr| %>
-                          <%= s.label :Gemachtigde %><br>
-                          <%# s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
-                          <%= s.text_field :name, :value => current_user.name %> <br>
-
-                          <br>
-
-                          <%= s.label :datum %><br>
-                          <%= s.datetime_select :date %>
-
-                          <br>
-                          <%= s.label :Pincode %><br>
-                          <%= s.text_field :pin %>
-
-                          </div>
-                          </div>
-                          </div>
-                          </div>
+                          <hr>
                       <% end %>
-          <% end %>
-        </div>
-        <% if can? :manage, Enquiry %>
-            <div class="form-group">
-              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Beheer
-                      </a>
-                    </h4>
+                  <% end %>
+                  <%= f.fields_for :enquirymeasures do |em| %>
+                      <%= em.label :bijzonderheden %>
+                      <%= em.text_field :other %></p>
+                  <% end %>
+
+                  <br>
+
+
                   </div>
-                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                      <p> Goedkeuring van het formulier door JPB Groep</p>
+                  </div>
 
-                      <%= f.label :Status %>
-                      <%= f.select :status, [['in aanvraag', 'in aanvraag'],['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control"   %><br>
+              <% end %>
+              </div>
 
-                      <%= f.fields_for :signatures do |si| %>
 
-                      <%= si.label :pincode %>
-                          <%= si.number_field :pin %>
+        <%= f.fields_for :enquirymeasures do |em| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingElektro">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseElektro" aria-expanded="false" aria-controls="collapseElektro">
+                    Elektrotechnische maatregelen
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseElektro" class="collapse" role="tabpanel" aria-labelledby="headingElektro">
+                <div class="card-block">
+                  <%= Measurement.where(measurementtype: 'Elektrotechnisch').find_each do |m| %>
 
-                      <%end%>
-
-                      <%= f.fields_for :controls do |c| %>
-
-                          <%= c.label :vergunning_gecontroleerd, "vergunning is gecontroleerd" %>
-                          <%= c.check_box :enquirycheck %><br>
-                          <%= c.label :werkplek_gecontroleerd, "werklocatie is gecontroleerd" %>
-                          <%= c.check_box :workspacecheck %>
+                      <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
+                          <%= em.hidden_field :measurementid, {:value => m.id} %>
+                          <%= em.hidden_field :type, {:value => m.measurementtype} %>
+                          <%= em.hidden_field :description, {:value => m.measurement} %>
+                          <p><%= m.id %>. <%= m.measurement %><%= em.check_box :needed %>
+                          <hr>
                       <% end %>
+                  <% end %>
 
-                    </div>
-
-                          </div>
-                  </div>
                 </div>
               </div>
-            </div>
-
             </div>
 
         <% end %>
         </div>
-        <div class="actions">
-          <%= f.submit label="Verzend aanvraag" %>
-        </div>
-        </div>
 
 
-        </div>
+        <%= f.fields_for :enquirymeasures do |em| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingHouder">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseHouder" aria-expanded="false" aria-controls="collapseHouder">
+                    Maatregelen door vergunninghouder
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseHouder" class="collapse" role="tabpanel" aria-labelledby="headingHouder">
+                <div class="card-block">
+                  <%= Measurement.where(measurementtype: 'vergunninghouder').find_each do |m| %>
 
+                      <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
+                          <%= em.hidden_field :measurementid, {:value => m.id} %>
+                          <%= em.hidden_field :type, {:value => m.measurementtype} %>
+                          <%= em.hidden_field :description, {:value => m.measurement} %>
+                          <p><%= m.measurement %>
+                            <%= em.check_box :needed %>
+                          </p>
+                          <hr>
+                      <% end %>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+
+
+        <%= f.fields_for :enquirymeasures do |em| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingBrand">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
+                    Brandpreventie maatregelen
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseBrand" class="collapse" role="tabpanel" aria-labelledby="headingBrand">
+                <div class="card-block">
+                  <%= Measurement.where(measurementtype: 'brandpreventie').find_each do |m| %>
+
+
+                      <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
+                          <%= em.hidden_field :measurementid, {:value => m.id} %>
+                          <%= em.hidden_field :type, {:value => m.measurementtype} %>
+                          <%= em.hidden_field :description, {:value => m.measurement} %>
+                          <p><%= m.measurement %>
+                            <%= em.check_box :needed %>
+                          </p>
+                          <hr>
+                      <% end %>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+
+
+        <%= f.fields_for :enquirymeasures do |em| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingPBM">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsePBM" aria-expanded="false" aria-controls="collapsePBM">
+                    Persoonlijke beschermingsmiddelen
+                  </a>
+                </h5>
+              </div>
+              <div id="collapsePBM" class="collapse" role="tabpanel" aria-labelledby="headingPBM">
+                <div class="card-block">
+                  <%= Measurement.where(measurementtype: 'PBM').find_each do |m| %>
+
+                      <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
+                          <%= em.hidden_field :measurementid, {:value => m.id} %>
+                          <%= em.hidden_field :type, {:value => m.measurementtype} %>
+                          <%= em.hidden_field :description, {:value => m.measurement} %>
+                          <p><%= m.measurement %>
+                            <%= em.check_box :needed %>
+                          </p>
+                          <hr>
+                      <% end %>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+        <%# gereedschap %>
+
+        <%= f.fields_for :tools do |t| %>
+
+            <div class="card">
+              <div class="card-header" role="tab" id="headingTools">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTools" aria-expanded="false" aria-controls="collapseTools">
+                    Gereedschap en Apparatuur
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseTools" class="collapse" role="tabpanel" aria-labelledby="headingTools">
+                <div class="card-block">
+
+                  <%= t.label :handgereedschap %><br>
+                  <%= t.text_field :handtool %>
+                  <br>
+
+                  <%= t.label :overig %><br>
+                  <%= t.text_area :other %>
+                  <br>
+                  <%= t.label :Motorvoertuig %>
+                  <%= t.check_box :motorvehicle %><br>
+                  <%= t.label :Compressor %>
+                  <%= t.check_box :compressor %><br>
+                  <%= t.label :Hoogwerker %>
+                  <%= t.check_box :ramp %><br>
+                  <%= t.label :Steiger %>
+                  <%= t.check_box :scaffold %><br>
+                  <%= t.label :Kraan %>
+                  <%= t.check_box :crane %><br>
+                  <%= t.label :Ladder %>
+                  <%= t.check_box :ladder %><br>
+                  <%= t.label :Aggregaat %>
+                  <%= t.check_box :generator %><br>
+                  <%= t.label :Tankladder %>
+                  <%= t.check_box :tankladder %>
+                </div>
+              </div>
+            </div>
+
+
+        <% end %>
+
+
+
+        <%= f.fields_for :gasmeters do |g| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingMetingen">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseMetingen" aria-expanded="false" aria-controls="collapseMetingen">
+                    Metingen
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseMetingen" class="collapse" role="tabpanel" aria-labelledby="headingMetingen">
+                <div class="card-block">
+                  <%= g.label :datum, "Datum en tijd van de gasmeting" %><br>
+                  <%= g.datetime_select :date %><br>
+
+                  <%= g.label :tester %><br>
+                  <%= g.text_field :tester %> <br>
+
+                  <%= g.label :handtekening %><br>
+                  <%= g.text_field :signature %> <br>
+
+                  <%= g.label :Zuurstof %><br>
+                  <%= g.text_field :oxigen %> <br>
+
+                  <%= g.label :benodigd %>
+                  <%= g.check_box :o_needed %>
+                  <br>
+                  <%= g.label :continu %>
+                  <%= g.check_box :o_continu %> <br>
+
+
+                  <%= g.label :explosief %><br>
+                  <%= g.text_field :explosives %> <br>
+
+                  <%= g.label :benodigd %>
+                  <%= g.check_box :e_needed %> <br>
+
+                  <%= g.label :continu %><
+                  <%= g.check_box :e_continu %> <br>
+
+                  <%= g.label :Stof1, "Stof 1" %><br>
+                  <%= g.text_field :mat1 %> <br>
+
+                  <%= g.label :benodigd %>
+                  <%= g.check_box :mat1_needed %>
+
+                  <%= g.label :continu %>
+                  <%= g.check_box :mat1_continu %> <br>
+
+                  <%= g.label :Stof2, "Stof 2" %><br>
+                  <%= g.text_field :mat2 %> <br>
+
+                  <%= g.label :benodigd %>
+                  <%= g.check_box :mat2_needed %>
+
+                  <%= g.label :continu %>
+                  <%= g.check_box :mat2_continu %> <br>
+
+                  <%= g.label :Stof3, "Stof 3" %><br>
+                  <%= g.text_field :mat3 %> <br>
+
+                  <%= g.label :benodigd %>
+                  <%= g.check_box :mat3_needed %>
+
+                  <%= g.label :continu %>
+                  <%= g.check_box :mat3_continu %> <br>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+
+
+        <%#<p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw pincode.</p>
+        %>
+        <%= f.fields_for :signatures do |s| %>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingTekenen">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTekenen" aria-expanded="false" aria-controls="collapseTekenen">
+                    Ondertekening
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseTekenen" class="collapse" role="tabpanel" aria-labelledby="headingTekenen">
+                <div class="card-block">
+                  <%= f.fields_for :representatives do |sr| %>
+                      <%= s.label :Gemachtigde %><br>
+                      <%# s.collection_select(:representative_id, Representative.all, :id, :name, prompt: true) %>
+                      <%= s.text_field :name, :value => current_user.name %> <br>
+
+                      <br>
+
+                      <%= s.label :datum %><br>
+                      <%= s.datetime_select :date %>
+
+                      <br>
+                      <%= s.label :Pincode %><br>
+                      <%= s.text_field :pin %>
+
+                      </div>
+                      </div>
+                      </div>
+
+                  <% end %>
+        <% end %>
+
+        <% if can? :manage, Enquiry %>
+
+
+            <div class="card">
+              <div class="card-header" role="tab" id="headingBeheer">
+                <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseBeheer" aria-expanded="true" aria-controls="collapseBeheer">
+                    Beheer
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseBeheer" class="collapse show" role="tabpanel" aria-labelledby="headingBeheer">
+                <div class="card-block">
+                  <p> Goedkeuring van het formulier door JPB Groep</p>
+
+                  <%= f.label :Status %>
+                  <%= f.select :status, [['in aanvraag', 'in aanvraag'], ['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control" %>
+                  <br>
+
+                  <%= f.fields_for :signatures do |si| %>
+
+                      <%= si.label :pincode %>
+                      <%= si.number_field :pin %>
+                      <br>
+                  <% end %>
+
+                  <%= f.fields_for :controls do |c| %>
+
+                      <%= c.label :vergunning_gecontroleerd, "vergunning is gecontroleerd" %>
+                      <%= c.check_box :enquirycheck %><br>
+                      <%= c.label :werkplek_gecontroleerd, "werklocatie is gecontroleerd" %>
+                      <%= c.check_box :workspacecheck %>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+        <% end %>
         </form>
+
+
+    </div>
+
+    </div>
+    <div class="actions">
+      <%= f.submit label="Verzend aanvraag" %>
+    </div>
+
+    </div>
+
+
+
+
 <% end %>
+
 

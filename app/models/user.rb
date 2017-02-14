@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
  belongs_to :role
-
   has_many :enquiries
 
   validates_presence_of :name
@@ -27,8 +26,8 @@ class User < ActiveRecord::Base
   end
 
 
-  after_create :send_welcome_mail
-  def send_welcome_mail
-    ModelMailer.welcome_email(self).deliver
-  end
+  #after_create :send_welcome_mail
+  #def send_welcome_mail
+  #  ModelMailer.welcome_email(self).deliver
+  #end
 end

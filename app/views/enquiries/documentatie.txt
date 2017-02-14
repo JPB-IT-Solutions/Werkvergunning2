@@ -58,6 +58,7 @@ Mailfunctie:
 - mail naar gebruiker word verstuurd bij: nieuwe user, nieuwe werkvergunning
 - mail naar JPB bij: nieuwe werkvergunning
 Default SMTP Gegevens in config/development nog aanpassen!!!!
+- mailen bij aanpassing status kan helaas niet automatisch. Dit dient handmatig gedaan te worden.
 
 06-02-2017
-Voor zoekfunctie: https://github.com/activerecord-hackery/ransack
+Er is een pincode ingevoerd voor zowel beheerder als aanvrager. Op dit moment puur ter controle vasn de beheerder, maar het is mogelijk om de pincode behorende bij de aanvrager en de door hem ingevulde pincode naast elkaar te plaatsen om deze te controleren.

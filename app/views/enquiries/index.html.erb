@@ -1,83 +1,26 @@
-<p id="notice"><%= notice %></p>
 
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "Werkvergunningssysteem", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
-
-        <li>
-          <% if can? :update, @enquiry %>
-              <%= link_to 'Gebruikers', users_path %></li>
-          <% end %>
-        <li>
-          <% if can? :update, @enquiry %>
-
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Beheer <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Aannemers", contractors_path %></li>
-              <li><%= link_to "Gemachtigden", representatives_path %></li>
-
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
-              </li>
-            </ul>
-        <% end %>
-
-                <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Profile", edit_user_registration_path %></li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
-              </li>
-            </ul>
-          </li>
-
-          </ul>
-    </nav>
+<div id='panel-wrapper'>
+  <div id='panel-header' class='text-center'>
+    <span class='panel-title'>JPB Werkvergunningen</span>
   </div>
-</header>
-<br><br><br><br>
+  <div id='panel-body'>
+    <div class='row'>
+      <div class='col-md-12'>
+
+<p id="notice"><%= notice %></p>
 
 <div id="main-container" class="container-fluid">
   <div class="row">
-    <div id="sidebar" class="col-xs-3">
-      <!-- sidebar content -->
 
-      <% if can? :create, Enquiry %>
-          <%= link_to 'Werkvergunning aanvragen', new_enquiry_path, class: 'btn btn-success' %><br>
-      <% end %>
-      <% if can? :update, @enquiry %>
-          <%= link_to 'Werkvergunningen', enquiries_path, class: 'btn btn-success' %><br>
-      <% end %>
-      <% if can? :update, @enquiry %>
-          <%= link_to 'Gebruikers', users_path, class: 'btn btn-success' %><br>
-      <% end %>
-      <% if can? :manage, @enquiry %>
-          <%= link_to 'Rollen', roles_path, class: 'btn btn-success' %>
-      <% end %>
-    </div>
-    <div id="content" class="col-xs-9">
+    <div id="content" class="col-xs-12">
       <!--  main content -->
-      <h1>JPB Werkvergunningen</h1>
-      <p>Welkom bij het JPB werkvergunninssyteem.</p>
-      <p>Binnen dit systeem kunt u nieuwe werkvergunningen aanvragen indien u van plan bent</p>
-      <p> werkzaamheden te gaan verrichten op een van onze locatie's.</p>
-
-
-
+      <p>Welkom bij het JPB werkvergunningssyteem.</p>
+      <p>Binnen dit systeem kunt u nieuwe werkvergunningen aanvragen indien u van plan bent werkzaamheden te gaan verrichten op een van onze locatie's.</p>
+      <%= @user_id %>
+    </div>
     </div>
   </div>
-</div>
+
 
 <%#link_to 'Nieuwe werkvergunning', new_enquiry_path, class: 'btn btn-success' %><br>
 
@@ -86,46 +29,18 @@
 <br>
 <div>
 
-  <%= grid(@tasks_grid, show_filters: :always) do |g|
+  <div class="panel-body">
+  <div class="row">
+<div class="col-sm-12">
 
-    g.column name: 'ID', attribute: 'id' , auto_reload: true do |enq|
-      enq.id
-    end
+  <%=render 'indextabel' %>
+</div>
+  </div>
+  </div>
 
-    g.column name: 'Referentie', attribute: 'reference', auto_reload: true do |enq|
-      enq.reference
-    end
+</div>
 
-
-    g.column name: 'Beschrijving', attribute: 'description', auto_reload: true do |enq|
-      enq.description
-    end
-
-    g.column name: 'Locatie', attribute: 'location', auto_reload: true do |enq|
-      enq.location
-    end
-
-    if can? :manage, @enquiry
-   #      g.column name: 'Aanvrager', attribute: 'name', assoc: :applicant do |enquiry|
-    #  enquiry.applicant.name
-     #end
-
-     #end
-
-
-      g.column name:  'Aanvrager', attribute: 'name',  assoc: :applicant, auto_reload: true
-      end
-
-    g.column do |enq|
-      #link_to('Edit', edit_enquiry_path(enq))
-       link_to 'Edit', edit_enquiry_path(enq), class: 'btn btn-info btn-xs'
-      end
-    g.column do |enq|
-        link_to 'Show', enq, class: 'btn btn-primary btn-xs'
-      end
-    g.column do |enq|
-       link_to 'Destroy', enq, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
-    end
-  end %>
-
+      </div>
+    </div>
+  </div>
 </div>

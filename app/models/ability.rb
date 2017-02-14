@@ -20,7 +20,7 @@ class Ability
       can :read, Enquiry
       can :create, :all
       can :edit, Enquiry
-      can :autofill_boxes, User if user.aanvrager
+      can :autofill_boxes, User if user.aanvrager?
 
       #can :update, Enquiry do |enquiry|
       #enquiry.try(:user) == user
