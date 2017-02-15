@@ -57,7 +57,6 @@
                     <%= a.label :Bedrijf %><br>
                     <%= a.text_field :company, :value => current_user.company, presence: true %>
 
-                    <%# Marco Groenhof 6-2-2017: Hier word de pincode bij de aanvrager weggeschreven voor eenvoudige pin controle door een controleur. %>
 
         <% end %>
         </div>
@@ -77,16 +76,16 @@
 
               <%= f.fields_for :enquirymeasures do |em| %>
 
-
                   <%= Measurement.where(measurementtype: 'product verklaring').find_each do |m| %>
-
 
                       <%= f.fields_for :enquirymeasures, :html => {:multipart => true} do |em| %>
                           <%= em.hidden_field :measurementid, {:value => m.id} %>
                           <%= em.hidden_field :type, {:value => m.measurementtype} %>
                           <%= em.hidden_field :description, {:value => m.measurement} %>
-                          <p><%= m.measurement %>
+                          <p>
                             <%= em.check_box :needed %>
+                            <%= m.measurement %>
+
 
                           <hr>
                       <% end %>
@@ -123,7 +122,7 @@
                           <%= em.hidden_field :measurementid, {:value => m.id} %>
                           <%= em.hidden_field :type, {:value => m.measurementtype} %>
                           <%= em.hidden_field :description, {:value => m.measurement} %>
-                          <p><%= m.id %>. <%= m.measurement %><%= em.check_box :needed %>
+                          <p><%= em.check_box :needed %> <%= m.measurement %>
                           <hr>
                       <% end %>
                   <% end %>
@@ -153,8 +152,8 @@
                           <%= em.hidden_field :measurementid, {:value => m.id} %>
                           <%= em.hidden_field :type, {:value => m.measurementtype} %>
                           <%= em.hidden_field :description, {:value => m.measurement} %>
-                          <p><%= m.measurement %>
-                            <%= em.check_box :needed %>
+                          <p><%= em.check_box :needed %> <%= m.measurement %>
+
                           </p>
                           <hr>
                       <% end %>
@@ -185,8 +184,8 @@
                           <%= em.hidden_field :measurementid, {:value => m.id} %>
                           <%= em.hidden_field :type, {:value => m.measurementtype} %>
                           <%= em.hidden_field :description, {:value => m.measurement} %>
-                          <p><%= m.measurement %>
-                            <%= em.check_box :needed %>
+                          <p><%= em.check_box :needed %> <%= m.measurement %>
+
                           </p>
                           <hr>
                       <% end %>
@@ -216,8 +215,8 @@
                           <%= em.hidden_field :measurementid, {:value => m.id} %>
                           <%= em.hidden_field :type, {:value => m.measurementtype} %>
                           <%= em.hidden_field :description, {:value => m.measurement} %>
-                          <p><%= m.measurement %>
-                            <%= em.check_box :needed %>
+                          <p><%= em.check_box :needed %> <%= m.measurement %>
+
                           </p>
                           <hr>
                       <% end %>
@@ -250,30 +249,35 @@
                   <%= t.label :overig %><br>
                   <%= t.text_area :other %>
                   <br>
+                  <%= t.check_box :motorvehicle %>
                   <%= t.label :Motorvoertuig %>
-                  <%= t.check_box :motorvehicle %><br>
+                  <br>
+                  <%= t.check_box :compressor %>
                   <%= t.label :Compressor %>
-                  <%= t.check_box :compressor %><br>
+                  <br>
+                  <%= t.check_box :ramp %>
                   <%= t.label :Hoogwerker %>
-                  <%= t.check_box :ramp %><br>
+                  <br>
+                  <%= t.check_box :scaffold %>
                   <%= t.label :Steiger %>
-                  <%= t.check_box :scaffold %><br>
+                 <br>
+                  <%= t.check_box :crane %>
                   <%= t.label :Kraan %>
-                  <%= t.check_box :crane %><br>
+                  <br>
+                  <%= t.check_box :ladder %>
                   <%= t.label :Ladder %>
-                  <%= t.check_box :ladder %><br>
+                  <br>
+                  <%= t.check_box :generator %>
                   <%= t.label :Aggregaat %>
-                  <%= t.check_box :generator %><br>
-                  <%= t.label :Tankladder %>
+                  <br>
                   <%= t.check_box :tankladder %>
+                  <%= t.label :Tankladder %>
+
                 </div>
               </div>
             </div>
 
-
         <% end %>
-
-
 
         <%= f.fields_for :gasmeters do |g| %>
             <div class="card">
@@ -345,8 +349,6 @@
             </div>
 
         <% end %>
-
-
         <%#<p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw pincode.</p>
         %>
         <%= f.fields_for :signatures do |s| %>
@@ -370,10 +372,6 @@
                       <%= s.label :datum %><br>
                       <%= s.datetime_select :date %>
 
-                      <br>
-                      <%= s.label :Pincode %><br>
-                      <%= s.text_field :pin %>
-
                       </div>
                       </div>
                       </div>
@@ -382,7 +380,6 @@
         <% end %>
 
         <% if can? :manage, Enquiry %>
-
 
             <div class="card">
               <div class="card-header" role="tab" id="headingBeheer">
@@ -400,12 +397,7 @@
                   <%= f.select :status, [['in aanvraag', 'in aanvraag'], ['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control" %>
                   <br>
 
-                  <%= f.fields_for :signatures do |si| %>
-
-                      <%= si.label :pincode %>
-                      <%= si.number_field :pin %>
                       <br>
-                  <% end %>
 
                   <%= f.fields_for :controls do |c| %>
 
@@ -432,9 +424,6 @@
     </div>
 
     </div>
-
-
-
 
 <% end %>
 

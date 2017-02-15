@@ -301,7 +301,6 @@ s
             <div class="actions">
 
               <a href="#" onclick="window.print();return false;" class="btn btn-info"><span class="glyphicon glyphicon-print"> Print mij</span></a>
-               <a href="<%=  @enquiry.id %>/print" class="btn btn-info"><span class="glyphicon glyphicon-print"> Print test</span></a>
               <%= link_to 'Back', enquiries_path, class: 'btn btn-info' %>
 <% if can? :manage, Enquiry %>
               <%= f.submit label="Verzend aanvraag" %>

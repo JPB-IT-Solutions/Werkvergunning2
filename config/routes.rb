@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
   scope "/Admin" do
     resources :users, :enquiries, :roles, :contractors, :representatives
+    get '/enquiries/:id/print', to: 'enquiries#print'
   end
 
   scope "/Aanvrager" do

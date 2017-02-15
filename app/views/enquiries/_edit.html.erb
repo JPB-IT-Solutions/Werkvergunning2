@@ -380,7 +380,6 @@
           <% end %>
         </div>
 
-        <p align="center">De laatste stap bestaat uit het ondertekenen van het formulier met uw pincode.</p>
         <div class="form-group">
           <%= f.fields_for :signatures do |s| %>
               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -404,9 +403,7 @@
                           <%= s.label :datum %><br>
                           <%= s.datetime_select :date %>
 
-                          <br>
-                          <%= s.label :Pincode %><br>
-                          <%= s.text_field :pin %>
+
 
                           </div>
                           </div>
@@ -432,13 +429,6 @@
 
                       <%= f.label :Status %>
                       <%= f.select :status, [['in aanvraag', 'in aanvraag'],['Goedgekeurd', 'goedgekeurd'], ['Geweigerd', 'geweigerd'], ['Afgesloten', 'afgesloten']], :class => "form-control"   %><br>
-
-                      <%= f.fields_for :signatures do |si| %>
-
-                          <%= si.label :pincode %>
-                          <%= si.number_field :pin %>
-                          <br>
-                      <%end%>
 
                       <%= f.fields_for :controls do |c| %>
 

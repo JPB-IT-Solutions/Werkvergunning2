@@ -40,7 +40,6 @@ class Enquiry < ActiveRecord::Base
  end
 
   def init
-
     self.status ||= 'in aanvraag'         #will set the default value only if it's ni
   end
 
